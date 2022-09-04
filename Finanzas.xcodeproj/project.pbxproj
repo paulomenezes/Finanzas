@@ -11,6 +11,13 @@
 		7568137528C43748004CE51B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568137428C43748004CE51B /* ContentView.swift */; };
 		7568137728C4374A004CE51B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7568137628C4374A004CE51B /* Assets.xcassets */; };
 		7568137A28C4374A004CE51B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7568137928C4374A004CE51B /* Preview Assets.xcassets */; };
+		7568138228C43956004CE51B /* CreditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568138128C43956004CE51B /* CreditCardView.swift */; };
+		7568138428C43AD7004CE51B /* CreditCardAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568138328C43AD7004CE51B /* CreditCardAddView.swift */; };
+		7568138828C43C19004CE51B /* CurrencyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568138728C43C19004CE51B /* CurrencyTextField.swift */; };
+		7568138A28C43C2C004CE51B /* CurrencyUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568138928C43C2C004CE51B /* CurrencyUITextField.swift */; };
+		7568138C28C43C47004CE51B /* NumberFormatterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568138B28C43C47004CE51B /* NumberFormatterProtocol.swift */; };
+		7568138F28C44937004CE51B /* Finanzas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7568138D28C44937004CE51B /* Finanzas.xcdatamodeld */; };
+		7568139228C44991004CE51B /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568139128C44991004CE51B /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +26,13 @@
 		7568137428C43748004CE51B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7568137628C4374A004CE51B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7568137928C4374A004CE51B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7568138128C43956004CE51B /* CreditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardView.swift; sourceTree = "<group>"; };
+		7568138328C43AD7004CE51B /* CreditCardAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardAddView.swift; sourceTree = "<group>"; };
+		7568138728C43C19004CE51B /* CurrencyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTextField.swift; sourceTree = "<group>"; };
+		7568138928C43C2C004CE51B /* CurrencyUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyUITextField.swift; sourceTree = "<group>"; };
+		7568138B28C43C47004CE51B /* NumberFormatterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterProtocol.swift; sourceTree = "<group>"; };
+		7568138E28C44937004CE51B /* Finanzas.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Finanzas.xcdatamodel; sourceTree = "<group>"; };
+		7568139128C44991004CE51B /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +65,14 @@
 		7568137128C43748004CE51B /* Finanzas */ = {
 			isa = PBXGroup;
 			children = (
+				7568139028C44988004CE51B /* data */,
+				7568138528C43C05004CE51B /* components */,
+				7568138028C43942004CE51B /* screens */,
 				7568137228C43748004CE51B /* FinanzasApp.swift */,
 				7568137428C43748004CE51B /* ContentView.swift */,
 				7568137628C4374A004CE51B /* Assets.xcassets */,
 				7568137828C4374A004CE51B /* Preview Content */,
+				7568138D28C44937004CE51B /* Finanzas.xcdatamodeld */,
 			);
 			path = Finanzas;
 			sourceTree = "<group>";
@@ -65,6 +83,41 @@
 				7568137928C4374A004CE51B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		7568138028C43942004CE51B /* screens */ = {
+			isa = PBXGroup;
+			children = (
+				7568138128C43956004CE51B /* CreditCardView.swift */,
+				7568138328C43AD7004CE51B /* CreditCardAddView.swift */,
+			);
+			path = screens;
+			sourceTree = "<group>";
+		};
+		7568138528C43C05004CE51B /* components */ = {
+			isa = PBXGroup;
+			children = (
+				7568138628C43C0C004CE51B /* CurrencyTextField */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
+		7568138628C43C0C004CE51B /* CurrencyTextField */ = {
+			isa = PBXGroup;
+			children = (
+				7568138728C43C19004CE51B /* CurrencyTextField.swift */,
+				7568138928C43C2C004CE51B /* CurrencyUITextField.swift */,
+				7568138B28C43C47004CE51B /* NumberFormatterProtocol.swift */,
+			);
+			path = CurrencyTextField;
+			sourceTree = "<group>";
+		};
+		7568139028C44988004CE51B /* data */ = {
+			isa = PBXGroup;
+			children = (
+				7568139128C44991004CE51B /* DataController.swift */,
+			);
+			path = data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +191,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7568137528C43748004CE51B /* ContentView.swift in Sources */,
+				7568138C28C43C47004CE51B /* NumberFormatterProtocol.swift in Sources */,
 				7568137328C43748004CE51B /* FinanzasApp.swift in Sources */,
+				7568138A28C43C2C004CE51B /* CurrencyUITextField.swift in Sources */,
+				7568139228C44991004CE51B /* DataController.swift in Sources */,
+				7568138228C43956004CE51B /* CreditCardView.swift in Sources */,
+				7568138828C43C19004CE51B /* CurrencyTextField.swift in Sources */,
+				7568138428C43AD7004CE51B /* CreditCardAddView.swift in Sources */,
+				7568138F28C44937004CE51B /* Finanzas.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +399,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7568138D28C44937004CE51B /* Finanzas.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7568138E28C44937004CE51B /* Finanzas.xcdatamodel */,
+			);
+			currentVersion = 7568138E28C44937004CE51B /* Finanzas.xcdatamodel */;
+			path = Finanzas.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7568136728C43748004CE51B /* Project object */;
 }
