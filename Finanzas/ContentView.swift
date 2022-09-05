@@ -9,34 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        NavigationView {
-            VStack {
-                TabView {
-                    Text("teste")
-                        .tabItem {
-                            Label("Dashboard", systemImage: "chart.xyaxis.line")
-                        }
-                    Text("teste 2")
-                        .tabItem {
-                            Label("Bills", systemImage: "doc.text.image")
-                        }
-                    Text("teste 2")
-                        .tabItem {
-                            Label("Accounts", systemImage: "banknote")
-                        }
-                    CreditCardView()
-                        .tabItem {
-                            Label("Credit Card", systemImage: "creditcard")
-                        }
-                        .navigationTitle("Credit Card")
+        TabView {
+//            Text("teste")
+//                .tabItem {
+//                    Label("Dashboard", systemImage: "chart.xyaxis.line")
+//                }
+            BillView()
+                .tabItem {
+                    Label("Transactions", systemImage: "arrow.left.arrow.right")
                 }
-            }
-            .navigationTitle("Finanzas")
-            .toolbar {
-                Button("Teste") {
-                    
+            BankAccountView()
+                .tabItem {
+                    Label("Accounts", systemImage: "banknote")
                 }
-            }
+            CreditCardView()
+                .tabItem {
+                    Label("Credit Cards", systemImage: "creditcard")
+                }
         }
     }
 }

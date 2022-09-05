@@ -7,35 +7,27 @@
 
 import SwiftUI
 
-enum ItemsType: String, CaseIterable, Identifiable {
-    case none
-    case recurrent
-    case installments
-    
-    var id: String { self.rawValue }
-}
+import CurrencyTextField
+import CurrencyFormatter
 
 struct CreditCardAddView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var managedObjectContext
     
+    @State private var currencyFormatter = CurrencyFormatter.default
+    
+    @State private var showPasteModal = false
+    
     @State private var name: String = ""
-    @State private var limit = 0
-    @State private var available = 0
+    @State private var limitText: String = "0"
+    @State private var limit: Double? = 0.0
+    @State private var available: Double = 0.0
+    @State private var paymentDate = Date()
     @State private var closedDate = Date()
     
-    @State var itemsValue = [Int]()
-    @State var itemsType = [ItemsType]()
-    @State var itemsInstallmentFrom = [String]()
-    @State var itemsInstallmentTo = [String]()
-    
-    private var numberFormatter: NumberFormatterProtocol
-    
-    init(numberFormatter: NumberFormatterProtocol = PreviewNumberFormatter(locale: Locale(identifier: "pt_BR"))) {
-        self.numberFormatter = numberFormatter
-        self.numberFormatter.numberStyle = .currency
-        self.numberFormatter.maximumFractionDigits = 2
-    }
+    @State var itemsValueText = [String]()
+    @State var itemsValue = [Double?]()
+    @State var itemsDate = [Date]()
     
     var body: some View {
         NavigationView {
@@ -46,18 +38,37 @@ struct CreditCardAddView: View {
                         
                         HStack {
                             Text("Limit")
-                            CurrencyTextField(numberFormatter: numberFormatter, value: $limit)
+                            
+                            CurrencyTextField(
+                                configuration: .init(
+                                    text: $limitText,
+                                    inputAmount: $limit,
+                                    clearsWhenValueIsZero: true,
+                                    formatter: $currencyFormatter,
+                                    textFieldConfiguration: { uiTextField in
+                                        uiTextField.keyboardType = .numbersAndPunctuation
+                                        uiTextField.layer.masksToBounds = true
+                                        uiTextField.textAlignment = .right
+                                    },
+                                    onCommit: {
+                                        calculateAvailable()
+                                    }
+                                )
+                            )
                         }
                         
                         HStack {
                             Text("Available")
-                            CurrencyTextField(numberFormatter: numberFormatter, value: $available)
+                            Spacer()
+                            Text(formatCurrency(value: available))
                         }
+                        
+                        DatePicker("Payment at", selection: $paymentDate, displayedComponents: [.date])
                         
                         DatePicker("Closed at", selection: $closedDate, displayedComponents: [.date])
                     }
                     
-                    Section(header: Text("Items")) {
+                    Section(header: Text("Bills")) {
                         if itemsValue.count > 0 {
                             ForEach(0..<itemsValue.count, id: \.self) { index in
                                 itemView(index: index)
@@ -65,10 +76,16 @@ struct CreditCardAddView: View {
                         }
                         
                         Button {
+                            self.itemsValueText.append("0")
                             self.itemsValue.append(0)
-                            self.itemsType.append(.none)
-                            self.itemsInstallmentFrom.append("1")
-                            self.itemsInstallmentTo.append("2")
+                            
+                            if self.itemsDate.isEmpty {
+                                self.itemsDate.append(paymentDate)
+                            } else {
+                                self.itemsDate.append(Calendar.current.date(byAdding: .month, value: 1, to: self.itemsDate.last ?? Date()) ?? Date())
+                            }
+                            
+                            calculateAvailable()
                         } label: {
                             Label("Add", systemImage: "plus")
                         }
@@ -87,9 +104,12 @@ struct CreditCardAddView: View {
                         let creditCard = CreditCard(context: managedObjectContext)
                         creditCard.id = UUID()
                         creditCard.name = name
-                        creditCard.limit = Double(limit) / 100
-                        creditCard.available = Double(available) / 100
-                        creditCard.closedAt = closedDate
+                        creditCard.limit = limit ?? 0
+                        creditCard.available = available
+                        creditCard.closedDate = closedDate
+                        creditCard.paymentDate = paymentDate
+                        creditCard.createdAt = Date()
+                        creditCard.updateAt = Date()
                         creditCard.item = []
                         
                         try? managedObjectContext.save()
@@ -97,11 +117,9 @@ struct CreditCardAddView: View {
                         for index in 0..<itemsValue.count {
                             let newItem = CreditCardItem(context: managedObjectContext)
                             newItem.id = UUID()
-                            newItem.value = Double(itemsValue[index]) / 100
-                            newItem.date = Date()
-                            newItem.type = itemsType[index].rawValue
-                            newItem.installmentFrom = Int16(itemsInstallmentFrom[index]) ?? 0
-                            newItem.installmentTo = Int16(itemsInstallmentTo[index]) ?? 0
+                            newItem.name = "Fatura \(itemsDate[index].toFormattedString())"
+                            newItem.value = itemsValue[index] ?? 0
+                            newItem.date = itemsDate[index]
                             newItem.creditCard = creditCard
                             
                             try? managedObjectContext.save()
@@ -116,34 +134,39 @@ struct CreditCardAddView: View {
     
     func itemView(index: Int) -> some View {
         VStack {
+            DatePicker("Date", selection: $itemsDate[index], displayedComponents: [.date])
+            
             HStack {
                 Text("Value")
-                CurrencyTextField(numberFormatter: numberFormatter, value: $itemsValue[index])
-            }
-            
-            Picker("Type", selection: $itemsType[index]) {
-                ForEach(ItemsType.allCases) { itemType in
-                    Text(itemType.rawValue.capitalized)
-                        .tag(itemType)
-                }
-            }
-            .pickerStyle(.segmented)
-            
-            if itemsType[index] == .installments {
-                HStack {
-                    Text("Installments")
-                    Spacer()
-                    TextField("From", text: $itemsInstallmentFrom[index])
-                        .frame(width: 50)
-                    Text("/")
-                        .font(.caption)
-                        .foregroundColor(.gray.opacity(0.5))
-                    TextField("To", text: $itemsInstallmentTo[index])
-                        .frame(width: 50)
-                }
+                CurrencyTextField(
+                    configuration: .init(
+                        text: $itemsValueText[index],
+                        inputAmount: $itemsValue[index],
+                        clearsWhenValueIsZero: true,
+                        formatter: $currencyFormatter,
+                        textFieldConfiguration: { uiTextField in
+                            uiTextField.keyboardType = .numbersAndPunctuation
+                            uiTextField.layer.masksToBounds = true
+                            uiTextField.textAlignment = .right
+                        },
+                        onCommit: {
+                            calculateAvailable()
+                        }
+                    )
+                )
+                
             }
         }
+    }
+    
+    func calculateAvailable() {
+        var available: Double = limit ?? 0
         
+        for item in itemsValue {
+            available -= item ?? 0
+        }
+        
+        self.available = available
     }
 }
 

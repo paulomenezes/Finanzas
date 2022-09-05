@@ -7,20 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7505CF6428C51A36003AF679 /* ItemsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7505CF6328C51A36003AF679 /* ItemsType.swift */; };
+		7505CF6628C51A4F003AF679 /* BillType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7505CF6528C51A4F003AF679 /* BillType.swift */; };
+		7505CF6B28C523C3003AF679 /* PasteItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7505CF6A28C523C3003AF679 /* PasteItemsView.swift */; };
+		7505CF6E28C526B3003AF679 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7505CF6D28C526B3003AF679 /* String.swift */; };
+		7505CF7128C52BD7003AF679 /* PasteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7505CF7028C52BD7003AF679 /* PasteItem.swift */; };
+		7505CF7328C58044003AF679 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7505CF7228C58044003AF679 /* Double.swift */; };
+		7505CF7628C590A0003AF679 /* CurrencyFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 7505CF7528C590A0003AF679 /* CurrencyFormatter */; };
+		7505CF7828C590A0003AF679 /* CurrencyTextSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7505CF7728C590A0003AF679 /* CurrencyTextSwiftUI */; };
+		7565805728C5937500D74B0E /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565805628C5937500D74B0E /* CurrencyFormatter.swift */; };
+		7565805928C597CE00D74B0E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565805828C597CE00D74B0E /* Date.swift */; };
 		7568137328C43748004CE51B /* FinanzasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568137228C43748004CE51B /* FinanzasApp.swift */; };
 		7568137528C43748004CE51B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568137428C43748004CE51B /* ContentView.swift */; };
 		7568137728C4374A004CE51B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7568137628C4374A004CE51B /* Assets.xcassets */; };
 		7568137A28C4374A004CE51B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7568137928C4374A004CE51B /* Preview Assets.xcassets */; };
 		7568138228C43956004CE51B /* CreditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568138128C43956004CE51B /* CreditCardView.swift */; };
 		7568138428C43AD7004CE51B /* CreditCardAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568138328C43AD7004CE51B /* CreditCardAddView.swift */; };
-		7568138828C43C19004CE51B /* CurrencyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568138728C43C19004CE51B /* CurrencyTextField.swift */; };
-		7568138A28C43C2C004CE51B /* CurrencyUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568138928C43C2C004CE51B /* CurrencyUITextField.swift */; };
-		7568138C28C43C47004CE51B /* NumberFormatterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568138B28C43C47004CE51B /* NumberFormatterProtocol.swift */; };
 		7568138F28C44937004CE51B /* Finanzas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7568138D28C44937004CE51B /* Finanzas.xcdatamodeld */; };
 		7568139228C44991004CE51B /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568139128C44991004CE51B /* DataController.swift */; };
+		7568139428C4E1E9004CE51B /* CreditCardItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568139328C4E1E9004CE51B /* CreditCardItemView.swift */; };
+		7568139628C4E60E004CE51B /* BankAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568139528C4E60E004CE51B /* BankAccountView.swift */; };
+		7568139828C4E62D004CE51B /* BankAccountAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568139728C4E62D004CE51B /* BankAccountAddView.swift */; };
+		7568139A28C4E85C004CE51B /* BankAccountItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568139928C4E85C004CE51B /* BankAccountItemView.swift */; };
+		7568139C28C4EB0E004CE51B /* BillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568139B28C4EB0E004CE51B /* BillView.swift */; };
+		7568139E28C4EB20004CE51B /* BillAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568139D28C4EB20004CE51B /* BillAddView.swift */; };
+		756813A028C4EE69004CE51B /* BillItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568139F28C4EE69004CE51B /* BillItemView.swift */; };
+		756813A328C4EE95004CE51B /* formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756813A228C4EE95004CE51B /* formatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7505CF6328C51A36003AF679 /* ItemsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsType.swift; sourceTree = "<group>"; };
+		7505CF6528C51A4F003AF679 /* BillType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillType.swift; sourceTree = "<group>"; };
+		7505CF6728C5207D003AF679 /* Finanzas.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Finanzas.entitlements; sourceTree = "<group>"; };
+		7505CF6A28C523C3003AF679 /* PasteItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteItemsView.swift; sourceTree = "<group>"; };
+		7505CF6D28C526B3003AF679 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		7505CF7028C52BD7003AF679 /* PasteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteItem.swift; sourceTree = "<group>"; };
+		7505CF7228C58044003AF679 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		7565805628C5937500D74B0E /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
+		7565805828C597CE00D74B0E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		7568136F28C43748004CE51B /* Finanzas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Finanzas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7568137228C43748004CE51B /* FinanzasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanzasApp.swift; sourceTree = "<group>"; };
 		7568137428C43748004CE51B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -28,11 +52,16 @@
 		7568137928C4374A004CE51B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7568138128C43956004CE51B /* CreditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardView.swift; sourceTree = "<group>"; };
 		7568138328C43AD7004CE51B /* CreditCardAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardAddView.swift; sourceTree = "<group>"; };
-		7568138728C43C19004CE51B /* CurrencyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTextField.swift; sourceTree = "<group>"; };
-		7568138928C43C2C004CE51B /* CurrencyUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyUITextField.swift; sourceTree = "<group>"; };
-		7568138B28C43C47004CE51B /* NumberFormatterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterProtocol.swift; sourceTree = "<group>"; };
 		7568138E28C44937004CE51B /* Finanzas.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Finanzas.xcdatamodel; sourceTree = "<group>"; };
 		7568139128C44991004CE51B /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		7568139328C4E1E9004CE51B /* CreditCardItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardItemView.swift; sourceTree = "<group>"; };
+		7568139528C4E60E004CE51B /* BankAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountView.swift; sourceTree = "<group>"; };
+		7568139728C4E62D004CE51B /* BankAccountAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountAddView.swift; sourceTree = "<group>"; };
+		7568139928C4E85C004CE51B /* BankAccountItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountItemView.swift; sourceTree = "<group>"; };
+		7568139B28C4EB0E004CE51B /* BillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillView.swift; sourceTree = "<group>"; };
+		7568139D28C4EB20004CE51B /* BillAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillAddView.swift; sourceTree = "<group>"; };
+		7568139F28C4EE69004CE51B /* BillItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillItemView.swift; sourceTree = "<group>"; };
+		756813A228C4EE95004CE51B /* formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = formatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,12 +69,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7505CF7828C590A0003AF679 /* CurrencyTextSwiftUI in Frameworks */,
+				7505CF7628C590A0003AF679 /* CurrencyFormatter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7505CF6C28C526A8003AF679 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7505CF6D28C526B3003AF679 /* String.swift */,
+				7505CF7228C58044003AF679 /* Double.swift */,
+				7565805628C5937500D74B0E /* CurrencyFormatter.swift */,
+				7565805828C597CE00D74B0E /* Date.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		7505CF6F28C52BCE003AF679 /* types */ = {
+			isa = PBXGroup;
+			children = (
+				7505CF7028C52BD7003AF679 /* PasteItem.swift */,
+			);
+			path = types;
+			sourceTree = "<group>";
+		};
 		7568136628C43748004CE51B = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +115,11 @@
 		7568137128C43748004CE51B /* Finanzas */ = {
 			isa = PBXGroup;
 			children = (
+				7505CF6F28C52BCE003AF679 /* types */,
+				7505CF6C28C526A8003AF679 /* extensions */,
+				7505CF6728C5207D003AF679 /* Finanzas.entitlements */,
+				756813A428C51A00004CE51B /* enums */,
+				756813A128C4EE8C004CE51B /* utils */,
 				7568139028C44988004CE51B /* data */,
 				7568138528C43C05004CE51B /* components */,
 				7568138028C43942004CE51B /* screens */,
@@ -90,6 +145,11 @@
 			children = (
 				7568138128C43956004CE51B /* CreditCardView.swift */,
 				7568138328C43AD7004CE51B /* CreditCardAddView.swift */,
+				7568139528C4E60E004CE51B /* BankAccountView.swift */,
+				7568139728C4E62D004CE51B /* BankAccountAddView.swift */,
+				7568139B28C4EB0E004CE51B /* BillView.swift */,
+				7568139D28C4EB20004CE51B /* BillAddView.swift */,
+				7505CF6A28C523C3003AF679 /* PasteItemsView.swift */,
 			);
 			path = screens;
 			sourceTree = "<group>";
@@ -97,19 +157,11 @@
 		7568138528C43C05004CE51B /* components */ = {
 			isa = PBXGroup;
 			children = (
-				7568138628C43C0C004CE51B /* CurrencyTextField */,
+				7568139328C4E1E9004CE51B /* CreditCardItemView.swift */,
+				7568139928C4E85C004CE51B /* BankAccountItemView.swift */,
+				7568139F28C4EE69004CE51B /* BillItemView.swift */,
 			);
 			path = components;
-			sourceTree = "<group>";
-		};
-		7568138628C43C0C004CE51B /* CurrencyTextField */ = {
-			isa = PBXGroup;
-			children = (
-				7568138728C43C19004CE51B /* CurrencyTextField.swift */,
-				7568138928C43C2C004CE51B /* CurrencyUITextField.swift */,
-				7568138B28C43C47004CE51B /* NumberFormatterProtocol.swift */,
-			);
-			path = CurrencyTextField;
 			sourceTree = "<group>";
 		};
 		7568139028C44988004CE51B /* data */ = {
@@ -118,6 +170,23 @@
 				7568139128C44991004CE51B /* DataController.swift */,
 			);
 			path = data;
+			sourceTree = "<group>";
+		};
+		756813A128C4EE8C004CE51B /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				756813A228C4EE95004CE51B /* formatter.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		756813A428C51A00004CE51B /* enums */ = {
+			isa = PBXGroup;
+			children = (
+				7505CF6328C51A36003AF679 /* ItemsType.swift */,
+				7505CF6528C51A4F003AF679 /* BillType.swift */,
+			);
+			path = enums;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +205,10 @@
 			dependencies = (
 			);
 			name = Finanzas;
+			packageProductDependencies = (
+				7505CF7528C590A0003AF679 /* CurrencyFormatter */,
+				7505CF7728C590A0003AF679 /* CurrencyTextSwiftUI */,
+			);
 			productName = Finanzas;
 			productReference = 7568136F28C43748004CE51B /* Finanzas.app */;
 			productType = "com.apple.product-type.application";
@@ -164,6 +237,9 @@
 				Base,
 			);
 			mainGroup = 7568136628C43748004CE51B;
+			packageReferences = (
+				7505CF7428C590A0003AF679 /* XCRemoteSwiftPackageReference "CurrencyText" */,
+			);
 			productRefGroup = 7568137028C43748004CE51B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -191,14 +267,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				7568137528C43748004CE51B /* ContentView.swift in Sources */,
-				7568138C28C43C47004CE51B /* NumberFormatterProtocol.swift in Sources */,
+				7565805728C5937500D74B0E /* CurrencyFormatter.swift in Sources */,
+				7505CF6428C51A36003AF679 /* ItemsType.swift in Sources */,
 				7568137328C43748004CE51B /* FinanzasApp.swift in Sources */,
-				7568138A28C43C2C004CE51B /* CurrencyUITextField.swift in Sources */,
+				7565805928C597CE00D74B0E /* Date.swift in Sources */,
 				7568139228C44991004CE51B /* DataController.swift in Sources */,
+				7568139C28C4EB0E004CE51B /* BillView.swift in Sources */,
+				7568139A28C4E85C004CE51B /* BankAccountItemView.swift in Sources */,
 				7568138228C43956004CE51B /* CreditCardView.swift in Sources */,
-				7568138828C43C19004CE51B /* CurrencyTextField.swift in Sources */,
+				7505CF6B28C523C3003AF679 /* PasteItemsView.swift in Sources */,
+				7505CF7328C58044003AF679 /* Double.swift in Sources */,
+				756813A328C4EE95004CE51B /* formatter.swift in Sources */,
+				7568139428C4E1E9004CE51B /* CreditCardItemView.swift in Sources */,
+				756813A028C4EE69004CE51B /* BillItemView.swift in Sources */,
+				7568139828C4E62D004CE51B /* BankAccountAddView.swift in Sources */,
+				7568139628C4E60E004CE51B /* BankAccountView.swift in Sources */,
+				7505CF6628C51A4F003AF679 /* BillType.swift in Sources */,
 				7568138428C43AD7004CE51B /* CreditCardAddView.swift in Sources */,
+				7505CF6E28C526B3003AF679 /* String.swift in Sources */,
 				7568138F28C44937004CE51B /* Finanzas.xcdatamodeld in Sources */,
+				7505CF7128C52BD7003AF679 /* PasteItem.swift in Sources */,
+				7568139E28C4EB20004CE51B /* BillAddView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +413,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Finanzas/Finanzas.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Finanzas/Preview Content\"";
@@ -342,9 +432,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tech.fundacao.Finanzas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -353,6 +444,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Finanzas/Finanzas.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Finanzas/Preview Content\"";
@@ -371,9 +463,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tech.fundacao.Finanzas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};
@@ -399,6 +492,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7505CF7428C590A0003AF679 /* XCRemoteSwiftPackageReference "CurrencyText" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marinofelipe/CurrencyText.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7505CF7528C590A0003AF679 /* CurrencyFormatter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7505CF7428C590A0003AF679 /* XCRemoteSwiftPackageReference "CurrencyText" */;
+			productName = CurrencyFormatter;
+		};
+		7505CF7728C590A0003AF679 /* CurrencyTextSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7505CF7428C590A0003AF679 /* XCRemoteSwiftPackageReference "CurrencyText" */;
+			productName = CurrencyTextSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		7568138D28C44937004CE51B /* Finanzas.xcdatamodeld */ = {

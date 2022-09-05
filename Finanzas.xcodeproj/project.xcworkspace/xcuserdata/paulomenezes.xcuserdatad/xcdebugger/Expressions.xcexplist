@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "CurrencyUITextField.init(formatter:value:):CurrencyUITextField.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CreditCardAddView.calculateCurrentBill():CreditCardAddView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "itemsValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #3 in closure #1 in CreditCardAddView.body.getter:CreditCardAddView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Int(item.value * 100)">
+            </PersistentString>
+            <PersistentString
+               value = "self.itemsInstallmentFrom">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CurrencyUITextField.decimal.getter:CurrencyUITextField.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "textValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CurrencyUITextField.editingChanged():CurrencyUITextField.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "decimal">
+            </PersistentString>
+            <PersistentString
+               value = "value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #1 in closure #1 in PasteItemsView.body.getter:PasteItemsView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "String(String(nameValue).split(separator: &quot;\t&quot;)[0])">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CurrencyUITextField.updateValue():CurrencyUITextField.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self?.value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CreditCardAddView.calculateAvailable():CreditCardAddView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "limit">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

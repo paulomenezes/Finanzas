@@ -1,25 +1,25 @@
 //
-//  CreditCardView.swift
+//  BillView.swift
 //  Finanzas
 //
-//  Created by Paulo Menezes on 03/09/22.
+//  Created by Paulo Menezes on 04/09/22.
 //
 
 import SwiftUI
 
-struct CreditCardView: View {
+struct BillView: View {
     @State private var addModalView = false
-    @FetchRequest(sortDescriptors: []) var creditCards: FetchedResults<CreditCard>
+    @FetchRequest(sortDescriptors: []) var bills: FetchedResults<Bill>
     
     var body: some View {
         NavigationView {
             VStack {
-                List(creditCards) { creditCard in
-                    CreditCardItemView(name: creditCard.name, limit: creditCard.limit, available: creditCard.available, openedBill: 100.0)
+                List(bills) { bill in
+                    BillItemView(name: bill.name, value: bill.value, paid: bill.paid, billType: bill.billType, date: bill.date)
                 }
             }
             .listStyle(.inset)
-            .navigationTitle("Credit Card")
+            .navigationTitle("Transactions")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -30,14 +30,14 @@ struct CreditCardView: View {
                 }
             }
             .sheet(isPresented: $addModalView) {
-                CreditCardAddView()
+                BillAddView()
             }
         }
     }
 }
 
-struct CreditCardView_Previews: PreviewProvider {
+struct BillView_Previews: PreviewProvider {
     static var previews: some View {
-        CreditCardView()
+        BillView()
     }
 }
