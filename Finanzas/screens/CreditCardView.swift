@@ -9,13 +9,28 @@ import SwiftUI
 
 struct CreditCardView: View {
     @State private var addModalView = false
-    @FetchRequest(sortDescriptors: []) var creditCards: FetchedResults<CreditCard>
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.name)
+    ]) var creditCards: FetchedResults<CreditCard>
     
     var body: some View {
         NavigationView {
             VStack {
-                List(creditCards) { creditCard in
-                    CreditCardItemView(name: creditCard.name, limit: creditCard.limit, available: creditCard.available, openedBill: 100.0)
+                if creditCards.count == 0 {
+                    EmptyView(title: "No credit cards found")
+                } else {
+                    List(creditCards) { creditCard in
+                        CreditCardItemView(name: creditCard.name, limit: creditCard.limit, available: creditCard.available, openedBill: 100.0)
+                            .swipeActions {
+                                Button("Delete") {
+                                    managedObjectContext.delete(creditCard)
+                                    try? managedObjectContext.save()
+                                }
+                                .tint(.red)
+                            }
+                    }
                 }
             }
             .listStyle(.inset)

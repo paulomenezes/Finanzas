@@ -1,18 +1,17 @@
 //
-//  BillItemView.swift
+//  TransactionItemView.swift
 //  Finanzas
 //
-//  Created by Paulo Menezes on 04/09/22.
+//  Created by Paulo Menezes on 05/09/22.
 //
 
 import SwiftUI
 
-struct BillItemView: View {
+struct TransactionItemView: View {
     public var name: String?
     public var value: Double?
     public var paid: Bool?
     public var billType: String?
-    public var date: Date?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -40,15 +39,12 @@ struct BillItemView: View {
                         .foregroundColor(.green)
                 }
             }
-            
-            Text((date ?? Date()).toFormattedString())
         }
-    }
-}
+    }}
 
-struct BillItemView_Previews: PreviewProvider {
+struct TransactionItemView_Previews: PreviewProvider {
     static var previews: some View {
-        BillItemView(name: "Nubank", value: 10000.0, paid: false, billType: "transfer", date: Date())
+        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, billType: "transfer")
             .previewLayout(.sizeThatFits)
     }
 }

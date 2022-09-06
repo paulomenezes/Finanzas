@@ -10,7 +10,6 @@ import SwiftUI
 struct BankAccountItemView: View {
     public var name: String?
     public var balance: Double?
-    public var savedMoney: Double?
     
     var body: some View {
         HStack {
@@ -19,14 +18,14 @@ struct BankAccountItemView: View {
             
             Spacer()
             
-            Text(formatCurrency(value: (balance ?? 0.0) + (savedMoney ?? 0.0)))
+            Text(formatCurrency(value: (balance ?? 0.0)))
         }
     }
 }
 
 struct BankAccountItemView_Previews: PreviewProvider {
     static var previews: some View {
-        BankAccountItemView(name: "Nubank", balance: 10000.0, savedMoney: 100.20)
+        BankAccountItemView(name: "Nubank", balance: 10000.0)
             .previewLayout(.sizeThatFits)
     }
 }

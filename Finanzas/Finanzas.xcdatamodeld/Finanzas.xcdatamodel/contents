@@ -5,10 +5,11 @@
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="savedMoney" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="updateAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Bill" representedClassName="Bill" syncable="YES" codeGenerationType="class">
+        <attribute name="accountFrom" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="accountTo" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="billType" optional="YES" attributeType="String"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -29,6 +30,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="limit" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="paymentAccount" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="paymentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="updateAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="item" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CreditCardItem" inverseName="creditCard" inverseEntity="CreditCardItem"/>
@@ -44,9 +46,9 @@
         <relationship name="creditCard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CreditCard" inverseName="item" inverseEntity="CreditCard"/>
     </entity>
     <elements>
-        <element name="BankAccount" positionX="-36" positionY="99" width="128" height="119"/>
-        <element name="Bill" positionX="-18" positionY="126" width="128" height="209"/>
-        <element name="CreditCard" positionX="-63" positionY="-18" width="128" height="164"/>
+        <element name="BankAccount" positionX="-36" positionY="99" width="128" height="104"/>
+        <element name="Bill" positionX="-18" positionY="126" width="128" height="239"/>
+        <element name="CreditCard" positionX="-63" positionY="-18" width="128" height="179"/>
         <element name="CreditCardItem" positionX="-54" positionY="45" width="128" height="149"/>
     </elements>
 </model>

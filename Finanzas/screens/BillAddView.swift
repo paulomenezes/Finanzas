@@ -32,8 +32,8 @@ struct BillAddView: View {
     @State private var installmentFrom: String = "1"
     @State private var installmentTo: String = "2"
     
-    @State private var accountFrom: BankAccount?
-    @State private var accountTo: BankAccount?
+    @State private var accountFrom: UUID?
+    @State private var accountTo: UUID?
 
     var colors = ["Red", "Green", "Blue", "Tartan"]
 
@@ -72,26 +72,25 @@ struct BillAddView: View {
                         DatePicker("Date", selection: $date, displayedComponents: [.date])
                     }
                     
-                    if billType != .transfer {
-                        Section(header: Text("Payment")) {
-                            Toggle(billType == .expense ? "Paid" : "Received", isOn: $paid)
-                            
-                            if paid {
-                                DatePicker(billType == .expense ? "Payment Date" : "Received Date", selection: $paymentDate, displayedComponents: [.date])
-                            }
+                    
+                    Section(header: Text("Payment")) {
+                        Toggle(billType == .expense ? "Paid" : billType == .income ? "Received" : "Transfered", isOn: $paid)
+                        
+                        if paid {
+                            DatePicker(billType == .expense ? "Payment Date" : billType == .income ? "Received Date" : "Transfer Date", selection: $paymentDate, displayedComponents: [.date])
                         }
-                    } else {
+                        
                         Picker("From", selection: $accountFrom) {
-                            ForEach(bankAccounts) { bankAccount in
+                            ForEach(bankAccounts, id: \.id) { bankAccount in
                                 Text(bankAccount.name ?? "-")
-                                    .tag(bankAccount)
                             }
                         }
                         
-                        Picker("To", selection: $accountTo) {
-                            ForEach(bankAccounts) { bankAccount in
-                                Text(bankAccount.name ?? "-")
-                                    .tag(bankAccount)
+                        if billType == .transfer {
+                            Picker("To", selection: $accountTo) {
+                                ForEach(bankAccounts, id: \.id) { bankAccount in
+                                    Text(bankAccount.name ?? "-")
+                                }
                             }
                         }
                     }
@@ -165,6 +164,8 @@ struct BillAddView: View {
         bill.installmentTo = Int16(installmentTo) ?? 0
         bill.type = type.rawValue
         bill.billType = billType.rawValue
+        bill.accountFrom = accountFrom
+        bill.accountTo = accountTo
         bill.createdAt = Date()
         bill.updateAt = Date()
         

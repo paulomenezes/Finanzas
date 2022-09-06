@@ -9,13 +9,28 @@ import SwiftUI
 
 struct BankAccountView: View {
     @State private var addModalView = false
-    @FetchRequest(sortDescriptors: []) var bankAccounts: FetchedResults<BankAccount>
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.name)
+    ]) var bankAccounts: FetchedResults<BankAccount>
     
     var body: some View {
         NavigationView {
             VStack {
-                List(bankAccounts) { bankAccount in
-                    BankAccountItemView(name: bankAccount.name, balance: bankAccount.balance, savedMoney: bankAccount.savedMoney)
+                if bankAccounts.count == 0 {
+                    EmptyView(title: "No accounts found")
+                } else {
+                    List(bankAccounts) { bankAccount in
+                        BankAccountItemView(name: bankAccount.name, balance: bankAccount.balance)
+                            .swipeActions {
+                                Button("Delete") {
+                                    managedObjectContext.delete(bankAccount)
+                                    try? managedObjectContext.save()
+                                }
+                                .tint(.red)
+                            }
+                    }
                 }
             }
             .listStyle(.inset)

@@ -17,6 +17,9 @@
 		7505CF7828C590A0003AF679 /* CurrencyTextSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7505CF7728C590A0003AF679 /* CurrencyTextSwiftUI */; };
 		7565805728C5937500D74B0E /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565805628C5937500D74B0E /* CurrencyFormatter.swift */; };
 		7565805928C597CE00D74B0E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565805828C597CE00D74B0E /* Date.swift */; };
+		7565805B28C62BF300D74B0E /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565805A28C62BF300D74B0E /* EmptyView.swift */; };
+		7565805D28C62E3800D74B0E /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565805C28C62E3800D74B0E /* DashboardView.swift */; };
+		7565805F28C6B62F00D74B0E /* TransactionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565805E28C6B62F00D74B0E /* TransactionItemView.swift */; };
 		7568137328C43748004CE51B /* FinanzasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568137228C43748004CE51B /* FinanzasApp.swift */; };
 		7568137528C43748004CE51B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568137428C43748004CE51B /* ContentView.swift */; };
 		7568137728C4374A004CE51B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7568137628C4374A004CE51B /* Assets.xcassets */; };
@@ -45,6 +48,9 @@
 		7505CF7228C58044003AF679 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		7565805628C5937500D74B0E /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
 		7565805828C597CE00D74B0E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		7565805A28C62BF300D74B0E /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		7565805C28C62E3800D74B0E /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		7565805E28C6B62F00D74B0E /* TransactionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionItemView.swift; sourceTree = "<group>"; };
 		7568136F28C43748004CE51B /* Finanzas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Finanzas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7568137228C43748004CE51B /* FinanzasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanzasApp.swift; sourceTree = "<group>"; };
 		7568137428C43748004CE51B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -150,6 +156,7 @@
 				7568139B28C4EB0E004CE51B /* BillView.swift */,
 				7568139D28C4EB20004CE51B /* BillAddView.swift */,
 				7505CF6A28C523C3003AF679 /* PasteItemsView.swift */,
+				7565805C28C62E3800D74B0E /* DashboardView.swift */,
 			);
 			path = screens;
 			sourceTree = "<group>";
@@ -160,6 +167,8 @@
 				7568139328C4E1E9004CE51B /* CreditCardItemView.swift */,
 				7568139928C4E85C004CE51B /* BankAccountItemView.swift */,
 				7568139F28C4EE69004CE51B /* BillItemView.swift */,
+				7565805A28C62BF300D74B0E /* EmptyView.swift */,
+				7565805E28C6B62F00D74B0E /* TransactionItemView.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -270,11 +279,14 @@
 				7565805728C5937500D74B0E /* CurrencyFormatter.swift in Sources */,
 				7505CF6428C51A36003AF679 /* ItemsType.swift in Sources */,
 				7568137328C43748004CE51B /* FinanzasApp.swift in Sources */,
+				7565805B28C62BF300D74B0E /* EmptyView.swift in Sources */,
 				7565805928C597CE00D74B0E /* Date.swift in Sources */,
 				7568139228C44991004CE51B /* DataController.swift in Sources */,
 				7568139C28C4EB0E004CE51B /* BillView.swift in Sources */,
 				7568139A28C4E85C004CE51B /* BankAccountItemView.swift in Sources */,
 				7568138228C43956004CE51B /* CreditCardView.swift in Sources */,
+				7565805D28C62E3800D74B0E /* DashboardView.swift in Sources */,
+				7565805F28C6B62F00D74B0E /* TransactionItemView.swift in Sources */,
 				7505CF6B28C523C3003AF679 /* PasteItemsView.swift in Sources */,
 				7505CF7328C58044003AF679 /* Double.swift in Sources */,
 				756813A328C4EE95004CE51B /* formatter.swift in Sources */,

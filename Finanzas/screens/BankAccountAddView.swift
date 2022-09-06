@@ -20,9 +20,6 @@ struct BankAccountAddView: View {
     
     @State private var balance: Double? = 0.0
     @State private var balanceText = "0"
-    
-    @State private var savedMoney: Double? = 0.0
-    @State private var savedMoneyText = "0"
         
     var body: some View {
         NavigationView {
@@ -46,25 +43,6 @@ struct BankAccountAddView: View {
                                     }
                                 )
                             )
-
-                        }
-                        
-                        HStack {
-                            Text("Saved")
-                            CurrencyTextField(
-                                configuration: .init(
-                                    text: $savedMoneyText,
-                                    inputAmount: $savedMoney,
-                                    clearsWhenValueIsZero: true,
-                                    formatter: $currencyFormatter,
-                                    textFieldConfiguration: { uiTextField in
-                                        uiTextField.keyboardType = .numbersAndPunctuation
-                                        uiTextField.layer.masksToBounds = true
-                                        uiTextField.textAlignment = .right
-                                    }
-                                )
-                            )
-
                         }
                     }
                 }
@@ -82,7 +60,6 @@ struct BankAccountAddView: View {
                         bankAccount.id = UUID()
                         bankAccount.name = name
                         bankAccount.balance = balance ?? 0.0
-                        bankAccount.savedMoney = savedMoney ?? 0.0
                         bankAccount.createdAt = Date()
                         bankAccount.updateAt = Date()
                         

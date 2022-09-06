@@ -10,10 +10,10 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-//            Text("teste")
-//                .tabItem {
-//                    Label("Dashboard", systemImage: "chart.xyaxis.line")
-//                }
+            DashboardView()
+                .tabItem {
+                    Label("Dashboard", systemImage: "chart.xyaxis.line")
+                }
             BillView()
                 .tabItem {
                     Label("Transactions", systemImage: "arrow.left.arrow.right")

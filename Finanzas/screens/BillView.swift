@@ -9,13 +9,29 @@ import SwiftUI
 
 struct BillView: View {
     @State private var addModalView = false
-    @FetchRequest(sortDescriptors: []) var bills: FetchedResults<Bill>
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.date),
+        SortDescriptor(\.name)
+    ]) var bills: FetchedResults<Bill>
     
     var body: some View {
         NavigationView {
             VStack {
-                List(bills) { bill in
-                    BillItemView(name: bill.name, value: bill.value, paid: bill.paid, billType: bill.billType, date: bill.date)
+                if bills.count == 0 {
+                    EmptyView(title: "No transactions found")
+                } else {
+                    List(bills) { bill in
+                        BillItemView(name: bill.name, value: bill.value, paid: bill.paid, billType: bill.billType, date: bill.date)
+                            .swipeActions {
+                                Button("Delete") {
+                                    managedObjectContext.delete(bill)
+                                    try? managedObjectContext.save()
+                                }
+                                .tint(.red)
+                            }
+                    }
                 }
             }
             .listStyle(.inset)

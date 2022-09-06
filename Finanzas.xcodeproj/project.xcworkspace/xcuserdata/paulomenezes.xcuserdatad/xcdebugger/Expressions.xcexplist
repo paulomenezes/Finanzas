@@ -38,6 +38,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in DashboardView.transactionsByDay():DashboardView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "date.date">
+            </PersistentString>
+            <PersistentString
+               value = "transaction.date">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CurrencyUITextField.editingChanged():CurrencyUITextField.swift">
          <PersistentStrings>
             <PersistentString
@@ -69,6 +80,17 @@
          <PersistentStrings>
             <PersistentString
                value = "limit">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in DashboardView.body.getter:DashboardView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bill.type">
+            </PersistentString>
+            <PersistentString
+               value = "bill">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

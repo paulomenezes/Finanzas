@@ -14,6 +14,8 @@ struct CreditCardAddView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var managedObjectContext
     
+    @FetchRequest(sortDescriptors: []) var bankAccounts: FetchedResults<BankAccount>
+    
     @State private var currencyFormatter = CurrencyFormatter.default
     
     @State private var showPasteModal = false
@@ -24,6 +26,8 @@ struct CreditCardAddView: View {
     @State private var available: Double = 0.0
     @State private var paymentDate = Date()
     @State private var closedDate = Date()
+    
+    @State private var paymentAccount: UUID?
     
     @State var itemsValueText = [String]()
     @State var itemsValue = [Double?]()
@@ -66,6 +70,12 @@ struct CreditCardAddView: View {
                         DatePicker("Payment at", selection: $paymentDate, displayedComponents: [.date])
                         
                         DatePicker("Closed at", selection: $closedDate, displayedComponents: [.date])
+                        
+                        Picker("Payment account", selection: $paymentAccount) {
+                            ForEach(bankAccounts, id: \.id) { bankAccount in
+                                Text(bankAccount.name ?? "-")
+                            }
+                        }
                     }
                     
                     Section(header: Text("Bills")) {
@@ -108,6 +118,7 @@ struct CreditCardAddView: View {
                         creditCard.available = available
                         creditCard.closedDate = closedDate
                         creditCard.paymentDate = paymentDate
+                        creditCard.paymentAccount = paymentAccount
                         creditCard.createdAt = Date()
                         creditCard.updateAt = Date()
                         creditCard.item = []
