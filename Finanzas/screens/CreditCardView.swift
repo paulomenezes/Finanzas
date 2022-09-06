@@ -34,7 +34,7 @@ struct CreditCardView: View {
                 }
             }
             .listStyle(.inset)
-            .navigationTitle("Credit Card")
+            .navigationTitle("Credit Cards")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

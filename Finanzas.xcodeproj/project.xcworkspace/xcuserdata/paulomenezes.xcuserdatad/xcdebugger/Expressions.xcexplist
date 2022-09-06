@@ -49,6 +49,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #3 in closure #1 in TransactionAddView.body.getter:TransactionAddView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "transactionItem.name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CurrencyUITextField.editingChanged():CurrencyUITextField.swift">
          <PersistentStrings>
             <PersistentString

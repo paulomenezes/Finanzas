@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TransactionView: View {
     @State private var addModalView = false
+    @State private var transaction: Transaction?
     
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(sortDescriptors: [
@@ -31,6 +32,10 @@ struct TransactionView: View {
                                 }
                                 .tint(.red)
                             }
+                            .onTapGesture {
+                                self.transaction = transaction
+                                addModalView.toggle()
+                            }
                     }
                 }
             }
@@ -46,7 +51,10 @@ struct TransactionView: View {
                 }
             }
             .sheet(isPresented: $addModalView) {
-                TransactionAddView()
+                TransactionAddView(transactionItem: transaction)
+                    .onDisappear {
+                        transaction = nil
+                    }
             }
         }
     }

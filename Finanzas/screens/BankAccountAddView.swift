@@ -47,7 +47,7 @@ struct BankAccountAddView: View {
                     }
                 }
             }
-            .navigationTitle("Add account")
+            .navigationTitle("Add Account")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {

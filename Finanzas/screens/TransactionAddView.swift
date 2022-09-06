@@ -14,6 +14,8 @@ struct TransactionAddView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var managedObjectContext
     
+    public var transactionItem: Transaction?
+    
     @FetchRequest(sortDescriptors: []) var bankAccounts: FetchedResults<BankAccount>
     
     @State private var currencyFormatter = CurrencyFormatter.default
@@ -34,8 +36,6 @@ struct TransactionAddView: View {
     
     @State private var accountFrom: UUID?
     @State private var accountTo: UUID?
-
-    var colors = ["Red", "Green", "Blue", "Tartan"]
 
     var body: some View {
         NavigationView {
@@ -122,7 +122,7 @@ struct TransactionAddView: View {
                     }
                 }
             }
-            .navigationTitle("Add transaction")
+            .navigationTitle(transactionItem != nil ? "Update transaction" : "Add Transaction")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
@@ -149,6 +149,11 @@ struct TransactionAddView: View {
                     }
                 }
             }
+            .onAppear {
+                if let transactionItem = transactionItem {
+                    name = transactionItem.name ?? ""
+                }
+            }
         }
     }
     
@@ -170,7 +175,6 @@ struct TransactionAddView: View {
         transaction.updateAt = Date()
         
         try? managedObjectContext.save()
-        
     }
 }
 

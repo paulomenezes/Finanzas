@@ -43,7 +43,7 @@ struct DashboardView: View {
                         ForEach(value) { transaction in
                             TransactionItemView(name: transaction.name, value: transaction.value, paid: transaction.paid, type: transaction.type)
                                 .swipeActions {
-                                    Button(transaction.type == TransactionType.expense.rawValue ? "Paid" : transaction.type == TransactionType.income.rawValue ? "Received" : "Transfered") {
+                                    Button(isExpense(transaction) ? "Paid" : isIncome(transaction) ? "Received" : "Transfered") {
                                         if !transaction.paid {
                                             transaction.paid = true
                                             
@@ -52,11 +52,11 @@ struct DashboardView: View {
                                             })
                                             
                                             if let bankAccount = bankAccount {
-                                                if transaction.type == TransactionType.expense.rawValue {
+                                                if isExpense(transaction) {
                                                     bankAccount.balance -= transaction.value
-                                                } else if transaction.type == TransactionType.income.rawValue {
+                                                } else if isIncome(transaction) {
                                                     bankAccount.balance += transaction.value
-                                                } else if transaction.type == TransactionType.transfer.rawValue {
+                                                } else if isTransfer(transaction) {
                                                     let bankAccountTo = bankAccounts.first(where: { account in
                                                         account.id == transaction.accountTo
                                                     })
@@ -118,7 +118,7 @@ struct DashboardView: View {
         
         return balance
     }
-
+    
     func transactionsByDay() -> [(key: String, value: [FetchedResults<Transaction>.Element])] {
         guard !transactions.isEmpty else { return [] }
         

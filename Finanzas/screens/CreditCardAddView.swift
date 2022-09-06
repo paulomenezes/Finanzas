@@ -102,7 +102,7 @@ struct CreditCardAddView: View {
                     }
                 }
             }
-            .navigationTitle("Add credit card")
+            .navigationTitle("Add Credit Card")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {

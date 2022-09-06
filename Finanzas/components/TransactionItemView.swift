@@ -17,10 +17,10 @@ struct TransactionItemView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                if type == TransactionType.income.rawValue {
+                if isIncome(type) {
                     Image(systemName: "arrow.up.right.circle")
                         .foregroundColor(.green)
-                } else if type == TransactionType.expense.rawValue {
+                } else if isExpense(type) {
                     Image(systemName: "arrow.down.right.circle")
                         .foregroundColor(.red)
                 } else {
@@ -51,6 +51,15 @@ struct TransactionItemView: View {
 struct TransactionItemView_Previews: PreviewProvider {
     static var previews: some View {
         TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "transfer", date: Date())
+            .previewLayout(.sizeThatFits)
+        
+        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "income", date: Date())
+            .previewLayout(.sizeThatFits)
+        
+        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "expense", date: Date())
+            .previewLayout(.sizeThatFits)
+        
+        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "transfer")
             .previewLayout(.sizeThatFits)
     }
 }
