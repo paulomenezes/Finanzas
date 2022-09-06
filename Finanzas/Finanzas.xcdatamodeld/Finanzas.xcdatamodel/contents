@@ -7,22 +7,6 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="updateAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
-    <entity name="Bill" representedClassName="Bill" syncable="YES" codeGenerationType="class">
-        <attribute name="accountFrom" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="accountTo" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="billType" optional="YES" attributeType="String"/>
-        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="installmentFrom" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="installmentTo" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="paid" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="paymentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="type" optional="YES" attributeType="String"/>
-        <attribute name="updateAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-    </entity>
     <entity name="CreditCard" representedClassName="CreditCard" syncable="YES" codeGenerationType="class">
         <attribute name="available" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="closedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -45,9 +29,25 @@
         <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="creditCard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CreditCard" inverseName="item" inverseEntity="CreditCard"/>
     </entity>
+    <entity name="Transaction" representedClassName="Transaction" syncable="YES" codeGenerationType="class">
+        <attribute name="accountFrom" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="accountTo" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="action" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="installmentFrom" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="installmentTo" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="paid" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="paymentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="updateAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
     <elements>
         <element name="BankAccount" positionX="-36" positionY="99" width="128" height="104"/>
-        <element name="Bill" positionX="-18" positionY="126" width="128" height="239"/>
+        <element name="Transaction" positionX="-18" positionY="126" width="128" height="239"/>
         <element name="CreditCard" positionX="-63" positionY="-18" width="128" height="179"/>
         <element name="CreditCardItem" positionX="-54" positionY="45" width="128" height="149"/>
     </elements>

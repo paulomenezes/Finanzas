@@ -1,5 +1,5 @@
 //
-//  BillAddView.swift
+//  TransactionAddView.swift
 //  Finanzas
 //
 //  Created by Paulo Menezes on 04/09/22.
@@ -10,7 +10,7 @@ import SwiftUI
 import CurrencyTextField
 import CurrencyFormatter
 
-struct BillAddView: View {
+struct TransactionAddView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var managedObjectContext
     
@@ -27,8 +27,8 @@ struct BillAddView: View {
     @State private var date = Date()
     @State private var paymentDate = Date()
     
-    @State private var billType: BillType = .expense
-    @State private var type: ItemsType = .none
+    @State private var type: TransactionType = .expense
+    @State private var actionType: ActionType = .none
     @State private var installmentFrom: String = "1"
     @State private var installmentTo: String = "2"
     
@@ -42,10 +42,10 @@ struct BillAddView: View {
             VStack {
                 Form {
                     Section(header: Text("Detail")) {
-                        Picker("Type", selection: $billType) {
-                            ForEach(BillType.allCases) { billType in
-                                Text(billType.rawValue.capitalized)
-                                    .tag(billType)
+                        Picker("Type", selection: $type) {
+                            ForEach(TransactionType.allCases) { transactionType in
+                                Text(transactionType.rawValue.capitalized)
+                                    .tag(transactionType)
                             }
                         }
                         .pickerStyle(.segmented)
@@ -74,10 +74,10 @@ struct BillAddView: View {
                     
                     
                     Section(header: Text("Payment")) {
-                        Toggle(billType == .expense ? "Paid" : billType == .income ? "Received" : "Transfered", isOn: $paid)
+                        Toggle(type == .expense ? "Paid" : type == .income ? "Received" : "Transfered", isOn: $paid)
                         
                         if paid {
-                            DatePicker(billType == .expense ? "Payment Date" : billType == .income ? "Received Date" : "Transfer Date", selection: $paymentDate, displayedComponents: [.date])
+                            DatePicker(type == .expense ? "Payment Date" : type == .income ? "Received Date" : "Transfer Date", selection: $paymentDate, displayedComponents: [.date])
                         }
                         
                         Picker("From", selection: $accountFrom) {
@@ -86,7 +86,7 @@ struct BillAddView: View {
                             }
                         }
                         
-                        if billType == .transfer {
+                        if type == .transfer {
                             Picker("To", selection: $accountTo) {
                                 ForEach(bankAccounts, id: \.id) { bankAccount in
                                     Text(bankAccount.name ?? "-")
@@ -96,15 +96,15 @@ struct BillAddView: View {
                     }
                     
                     Section(header: Text("Type")) {
-                        Picker("Type", selection: $type) {
-                            ForEach(ItemsType.allCases) { itemType in
-                                Text(itemType.rawValue.capitalized)
-                                    .tag(itemType)
+                        Picker("Type", selection: $actionType) {
+                            ForEach(ActionType.allCases) { actionType in
+                                Text(actionType.rawValue.capitalized)
+                                    .tag(actionType)
                             }
                         }
                         .pickerStyle(.segmented)
                         
-                        if type == .installments {
+                        if actionType == .installments {
                             HStack {
                                 Text("Installments")
                                 Spacer()
@@ -153,29 +153,29 @@ struct BillAddView: View {
     }
     
     func save() {
-        let bill = Bill(context: managedObjectContext)
-        bill.id = UUID()
-        bill.name = name
-        bill.value = value ?? 0.0
-        bill.date = date
-        bill.paid = paid
-        bill.paymentDate = paymentDate
-        bill.installmentFrom = Int16(installmentFrom) ?? 0
-        bill.installmentTo = Int16(installmentTo) ?? 0
-        bill.type = type.rawValue
-        bill.billType = billType.rawValue
-        bill.accountFrom = accountFrom
-        bill.accountTo = accountTo
-        bill.createdAt = Date()
-        bill.updateAt = Date()
+        let transaction = Transaction(context: managedObjectContext)
+        transaction.id = UUID()
+        transaction.name = name
+        transaction.value = value ?? 0.0
+        transaction.date = date
+        transaction.paid = paid
+        transaction.paymentDate = paymentDate
+        transaction.installmentFrom = Int16(installmentFrom) ?? 0
+        transaction.installmentTo = Int16(installmentTo) ?? 0
+        transaction.action = actionType.rawValue
+        transaction.type = type.rawValue
+        transaction.accountFrom = accountFrom
+        transaction.accountTo = accountTo
+        transaction.createdAt = Date()
+        transaction.updateAt = Date()
         
         try? managedObjectContext.save()
         
     }
 }
 
-struct BillAddView_Previews: PreviewProvider {
+struct TransactionAddView_Previews: PreviewProvider {
     static var previews: some View {
-        BillAddView()
+        TransactionAddView()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  BillView.swift
+//  TransactionView.swift
 //  Finanzas
 //
 //  Created by Paulo Menezes on 04/09/22.
@@ -7,26 +7,26 @@
 
 import SwiftUI
 
-struct BillView: View {
+struct TransactionView: View {
     @State private var addModalView = false
     
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.date),
         SortDescriptor(\.name)
-    ]) var bills: FetchedResults<Bill>
+    ]) var transactions: FetchedResults<Transaction>
     
     var body: some View {
         NavigationView {
             VStack {
-                if bills.count == 0 {
+                if transactions.count == 0 {
                     EmptyView(title: "No transactions found")
                 } else {
-                    List(bills) { bill in
-                        BillItemView(name: bill.name, value: bill.value, paid: bill.paid, billType: bill.billType, date: bill.date)
+                    List(transactions) { transaction in
+                        TransactionItemView(name: transaction.name, value: transaction.value, paid: transaction.paid, type: transaction.type, date: transaction.date)
                             .swipeActions {
                                 Button("Delete") {
-                                    managedObjectContext.delete(bill)
+                                    managedObjectContext.delete(transaction)
                                     try? managedObjectContext.save()
                                 }
                                 .tint(.red)
@@ -46,14 +46,14 @@ struct BillView: View {
                 }
             }
             .sheet(isPresented: $addModalView) {
-                BillAddView()
+                TransactionAddView()
             }
         }
     }
 }
 
-struct BillView_Previews: PreviewProvider {
+struct TransactionView_Previews: PreviewProvider {
     static var previews: some View {
-        BillView()
+        TransactionView()
     }
 }

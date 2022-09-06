@@ -2,7 +2,7 @@
 //  TransactionItemView.swift
 //  Finanzas
 //
-//  Created by Paulo Menezes on 05/09/22.
+//  Created by Paulo Menezes on 04/09/22.
 //
 
 import SwiftUI
@@ -11,15 +11,16 @@ struct TransactionItemView: View {
     public var name: String?
     public var value: Double?
     public var paid: Bool?
-    public var billType: String?
+    public var type: String?
+    public var date: Date?
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                if billType == BillType.income.rawValue {
+                if type == TransactionType.income.rawValue {
                     Image(systemName: "arrow.up.right.circle")
                         .foregroundColor(.green)
-                } else if billType == BillType.expense.rawValue {
+                } else if type == TransactionType.expense.rawValue {
                     Image(systemName: "arrow.down.right.circle")
                         .foregroundColor(.red)
                 } else {
@@ -39,12 +40,17 @@ struct TransactionItemView: View {
                         .foregroundColor(.green)
                 }
             }
+            
+            if let date = date {
+                Text((date).toFormattedString())
+            }
         }
-    }}
+    }
+}
 
 struct TransactionItemView_Previews: PreviewProvider {
     static var previews: some View {
-        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, billType: "transfer")
+        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "transfer", date: Date())
             .previewLayout(.sizeThatFits)
     }
 }

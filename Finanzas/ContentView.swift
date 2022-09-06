@@ -14,7 +14,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Dashboard", systemImage: "chart.xyaxis.line")
                 }
-            BillView()
+            TransactionView()
                 .tabItem {
                     Label("Transactions", systemImage: "arrow.left.arrow.right")
                 }

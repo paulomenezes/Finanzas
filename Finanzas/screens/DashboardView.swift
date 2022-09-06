@@ -17,7 +17,7 @@ struct DashboardView: View {
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.date),
         SortDescriptor(\.name)
-    ]) var transactions: FetchedResults<Bill>
+    ]) var transactions: FetchedResults<Transaction>
     
     var body: some View {
         NavigationView {
@@ -40,31 +40,31 @@ struct DashboardView: View {
                 List {
                     ForEach(transactionsByDay(), id: \.key) { key, value in
                         Text(key)
-                        ForEach(value) { bill in
-                            TransactionItemView(name: bill.name, value: bill.value, paid: bill.paid, billType: bill.billType)
+                        ForEach(value) { transaction in
+                            TransactionItemView(name: transaction.name, value: transaction.value, paid: transaction.paid, type: transaction.type)
                                 .swipeActions {
-                                    Button(bill.billType == BillType.expense.rawValue ? "Paid" : bill.billType == BillType.income.rawValue ? "Received" : "Transfered") {
-                                        if !bill.paid {
-                                            bill.paid = true
+                                    Button(transaction.type == TransactionType.expense.rawValue ? "Paid" : transaction.type == TransactionType.income.rawValue ? "Received" : "Transfered") {
+                                        if !transaction.paid {
+                                            transaction.paid = true
                                             
                                             let bankAccount = bankAccounts.first(where: { account in
-                                                account.id == bill.accountFrom
+                                                account.id == transaction.accountFrom
                                             })
                                             
                                             if let bankAccount = bankAccount {
-                                                if bill.billType == BillType.expense.rawValue {
-                                                    bankAccount.balance -= bill.value
-                                                } else if bill.billType == BillType.income.rawValue {
-                                                    bankAccount.balance += bill.value
-                                                } else if bill.billType == BillType.transfer.rawValue {
+                                                if transaction.type == TransactionType.expense.rawValue {
+                                                    bankAccount.balance -= transaction.value
+                                                } else if transaction.type == TransactionType.income.rawValue {
+                                                    bankAccount.balance += transaction.value
+                                                } else if transaction.type == TransactionType.transfer.rawValue {
                                                     let bankAccountTo = bankAccounts.first(where: { account in
-                                                        account.id == bill.accountTo
+                                                        account.id == transaction.accountTo
                                                     })
                                                     
-                                                    bankAccount.balance -= bill.value
+                                                    bankAccount.balance -= transaction.value
                                                     
                                                     if let bankAccountTo = bankAccountTo {
-                                                        bankAccountTo.balance += bill.value
+                                                        bankAccountTo.balance += transaction.value
                                                     }
                                                 }
                                             }
@@ -106,9 +106,9 @@ struct DashboardView: View {
             if key <= d {
                 for value in transaction.value {
                     if !value.paid {
-                        if value.billType == BillType.expense.rawValue {
+                        if value.type == TransactionType.expense.rawValue {
                             balance -= value.value
-                        } else if value.billType == BillType.income.rawValue {
+                        } else if value.type == TransactionType.income.rawValue {
                             balance += value.value
                         }
                     }
@@ -119,7 +119,7 @@ struct DashboardView: View {
         return balance
     }
 
-    func transactionsByDay() -> [(key: String, value: [FetchedResults<Bill>.Element])] {
+    func transactionsByDay() -> [(key: String, value: [FetchedResults<Transaction>.Element])] {
         guard !transactions.isEmpty else { return [] }
         
         return Dictionary(grouping: transactions) { transaction in
