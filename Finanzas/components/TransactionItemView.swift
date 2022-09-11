@@ -13,6 +13,7 @@ struct TransactionItemView: View {
     public var paid: Bool?
     public var type: String?
     public var date: Date?
+    public var installmentsTo: Int16?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -33,7 +34,13 @@ struct TransactionItemView: View {
                 
                 Spacer()
                 
-                Text(formatCurrency(value: value))
+                HStack {
+                    if installmentsTo != nil && installmentsTo! > 1 {
+                        Text("\(installmentsTo!)x")
+                            .font(.caption)
+                    }
+                    Text(formatCurrency(value: value))
+                }
                 
                 if paid ?? false {
                     Image(systemName: "checkmark.circle")
@@ -50,16 +57,16 @@ struct TransactionItemView: View {
 
 struct TransactionItemView_Previews: PreviewProvider {
     static var previews: some View {
-        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "transfer", date: Date())
+        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "transfer", date: Date(), installmentsTo: 10)
             .previewLayout(.sizeThatFits)
         
-        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "income", date: Date())
+        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "income", date: Date(), installmentsTo: 10)
             .previewLayout(.sizeThatFits)
         
-        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "expense", date: Date())
+        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "expense", date: Date(), installmentsTo: 10)
             .previewLayout(.sizeThatFits)
         
-        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "transfer")
+        TransactionItemView(name: "Nubank", value: 10000.0, paid: false, type: "transfer", installmentsTo: 10)
             .previewLayout(.sizeThatFits)
     }
 }

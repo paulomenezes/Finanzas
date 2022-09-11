@@ -43,7 +43,7 @@ struct DashboardView: View {
                     ForEach(transactionsByDay(), id: \.key) { key, value in
                         Text(key)
                         ForEach(value) { transaction in
-                            TransactionItemView(name: transaction.name, value: transaction.value, paid: transaction.paid, type: transaction.type)
+                            TransactionItemView(name: transaction.name, value: transaction.value, paid: transaction.paid, type: transaction.type, installmentsTo: transaction.installmentTo)
                                 .swipeActions {
                                     Button(isExpense(transaction) ? "Paid" : isIncome(transaction) ? "Received" : "Transfered") {
                                         if !transaction.paid {
@@ -74,6 +74,33 @@ struct DashboardView: View {
                                                             bankAccountTo.balance += transaction.value
                                                         }
                                                     }
+                                                }
+                                                
+                                                if transaction.installmentFrom != transaction.installmentTo {
+                                                    let creditCardPaymentDateComponents = calendar.dateComponents([.year, .month, .day], from: transaction.date ?? Date())
+                                                    
+                                                    var dateComponents = DateComponents()
+                                                    dateComponents.year = creditCardPaymentDateComponents.year
+                                                    dateComponents.month = (creditCardPaymentDateComponents.month ?? 0) + 1
+                                                    dateComponents.day = creditCardPaymentDateComponents.day
+
+                                                    let clone = Transaction(context: managedObjectContext)
+                                                    clone.id = UUID()
+                                                    clone.name = updateTransaction.name
+                                                    clone.value = updateTransaction.value
+                                                    clone.date = calendar.date(from: dateComponents) ?? Date()
+                                                    clone.paid = false
+                                                    clone.paymentType = transaction.paymentType
+                                                    clone.paymentDate = transaction.paymentDate
+                                                    clone.installmentFrom = (transaction.installmentFrom ?? 1) + 1
+                                                    clone.installmentTo = transaction.installmentTo ?? 1
+                                                    clone.action = transaction.action
+                                                    clone.type = transaction.type
+                                                    clone.accountFrom = transaction.accountFrom
+                                                    clone.accountTo = transaction.accountTo
+                                                    clone.creditCardFrom = transaction.creditCardFrom
+                                                    clone.creditCardPayment = transaction.creditCardPayment
+                                                    clone.recurrentLastDate = transaction.recurrentLastDate
                                                 }
 
                                                 try? managedObjectContext.save()
@@ -130,110 +157,9 @@ struct DashboardView: View {
     func transactionsByDay() -> [(key: String, value: [TransactionDashboard])] {
         guard !transactions.isEmpty else { return [] }
         
-        var newTransactions: [TransactionDashboard] = []
+        let newTransactions: [TransactionDashboard] = transactionsData(transactions: transactions)
         
-        for transaction in transactions {
-            var clone = TransactionDashboard(
-                id: transaction.id,
-                name: transaction.name,
-                value: transaction.value,
-                date: transaction.date,
-                paid: transaction.paid,
-                paymentType: transaction.paymentType,
-                paymentDate: transaction.paymentDate,
-                installmentFrom: transaction.installmentFrom,
-                installmentTo: transaction.installmentTo,
-                action: transaction.action,
-                type: transaction.type,
-                accountFrom: transaction.accountFrom,
-                accountTo: transaction.accountTo,
-                creditCardFrom: transaction.creditCardFrom,
-                creditCardPayment: transaction.creditCardPayment,
-                recurrentLastDate: transaction.recurrentLastDate
-            )
-            
-//            if !clone.paid {
-                if clone.action == ActionType.installments.rawValue {
-                    clone.name = "\(transaction.name ?? "") \(transaction.installmentFrom)/\(transaction.installmentTo)"
-                    clone.value = transaction.value / Double(clone.installmentTo ?? 1)
-                    
-                    newTransactions.append(clone)
-                    
-                    let from = transaction.installmentFrom
-                    let to = transaction.installmentTo
-                    
-                    if to > from {
-                        var i: Int16 = 1
-                        for _ in from..<to {
-                            let creditCardPaymentDateComponents = calendar.dateComponents([.year, .month, .day], from: transaction.date ?? Date())
-                            
-                            var dateComponents = DateComponents()
-                            dateComponents.year = creditCardPaymentDateComponents.year
-                            dateComponents.month = (creditCardPaymentDateComponents.month ?? 0) + Int(i)
-                            dateComponents.day = creditCardPaymentDateComponents.day
-                            
-                            let installmentFrom = from + i
-
-                            let newItemClone = TransactionDashboard(
-                                id: UUID(),
-                                name: "\(transaction.name ?? "") \(installmentFrom)/\(transaction.installmentTo)",
-                                value: transaction.value / Double(transaction.installmentTo),
-                                date: calendar.date(from: dateComponents) ?? Date(),
-                                paid: false,
-                                paymentType: transaction.paymentType,
-                                paymentDate: transaction.paymentDate,
-                                installmentFrom: installmentFrom,
-                                installmentTo: transaction.installmentTo,
-                                action: transaction.action,
-                                type: transaction.type,
-                                accountFrom: transaction.accountFrom,
-                                accountTo: transaction.accountTo,
-                                creditCardPayment: transaction.creditCardPayment,
-                                recurrentLastDate: transaction.recurrentLastDate
-                            )
-                            
-                            newTransactions.append(newItemClone)
-                            
-                            i += 1
-                        }
-                    }
-                } else if clone.action == ActionType.recurrent.rawValue {
-                    newTransactions.append(clone)
-                } else {
-                    newTransactions.append(clone)
-                }
-//            }
-        }
-        
-        let dict: [(key: String, value: [TransactionDashboard])] = Dictionary(grouping: newTransactions) { transaction in
-            if transaction.paymentType == PaymentType.credit.rawValue {
-                let creditCardPaymentDate = transaction.creditCardFrom?.paymentDate ?? Date()
-                let itemDate = transaction.date ?? Date()
-                
-                if itemDate > creditCardPaymentDate {
-                    let creditCardPaymentDateComponents = calendar.dateComponents([.year, .month, .day], from: creditCardPaymentDate)
-                    let itemDateComponents = calendar.dateComponents([.year, .month, .day], from: itemDate)
-
-                    var dateComponents = DateComponents()
-                    dateComponents.year = itemDateComponents.year
-                    dateComponents.month = (itemDateComponents.month ?? 0) + 1
-                    dateComponents.day = creditCardPaymentDateComponents.day
-                    
-                    return calendar.date(from: dateComponents)?.toFormattedString() ?? ""
-                } else {
-                    return transaction.creditCardFrom?.paymentDate?.toFormattedString() ?? ""
-                }
-            } else {
-                return transaction.date?.toFormattedString() ?? ""
-            }
-        }.sorted(by: {
-            let a = $0.key.toDate(withFormat: "dd/MM/yyyy") ?? Date()
-            let b = $1.key.toDate(withFormat: "dd/MM/yyyy") ?? Date()
-            
-            return a < b
-        })
-        
-        return dict
+        return transactionsGroupByDate(transactions: newTransactions)
     }
 }
 

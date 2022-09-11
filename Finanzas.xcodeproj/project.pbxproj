@@ -36,6 +36,7 @@
 		756813A028C4EE69004CE51B /* TransactionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7568139F28C4EE69004CE51B /* TransactionItemView.swift */; };
 		756813A328C4EE95004CE51B /* formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756813A228C4EE95004CE51B /* formatter.swift */; };
 		759493E328CD2A03002EC02A /* PaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759493E228CD2A03002EC02A /* PaymentType.swift */; };
+		759493E628CE3308002EC02A /* TransactionsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759493E528CE3308002EC02A /* TransactionsData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		7568139F28C4EE69004CE51B /* TransactionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionItemView.swift; sourceTree = "<group>"; };
 		756813A228C4EE95004CE51B /* formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = formatter.swift; sourceTree = "<group>"; };
 		759493E228CD2A03002EC02A /* PaymentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentType.swift; sourceTree = "<group>"; };
+		759493E528CE3308002EC02A /* TransactionsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				7568139128C44991004CE51B /* DataController.swift */,
+				759493E528CE3308002EC02A /* TransactionsData.swift */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				7505CF6628C51A4F003AF679 /* TransactionType.swift in Sources */,
 				7568138428C43AD7004CE51B /* CreditCardAddView.swift in Sources */,
 				7505CF6E28C526B3003AF679 /* String.swift in Sources */,
+				759493E628CE3308002EC02A /* TransactionsData.swift in Sources */,
 				7568138F28C44937004CE51B /* Finanzas.xcdatamodeld in Sources */,
 				7505CF7128C52BD7003AF679 /* TransactionDashboard.swift in Sources */,
 				7568139E28C4EB20004CE51B /* TransactionAddView.swift in Sources */,

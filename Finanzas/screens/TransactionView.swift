@@ -23,19 +23,26 @@ struct TransactionView: View {
                 if transactions.count == 0 {
                     EmptyView(title: "No transactions found")
                 } else {
-                    List(transactions) { transaction in
-                        TransactionItemView(name: transaction.name, value: transaction.value, paid: transaction.paid, type: transaction.type, date: transaction.date)
+                    List(transactionsData(transactions: transactions)) { transaction in
+                        TransactionItemView(
+                            name: transaction.name,
+                            value: transaction.value,
+                            paid: transaction.paid,
+                            type: transaction.type,
+                            date: transaction.date,
+                            installmentsTo: transaction.installmentTo
+                        )
                             .swipeActions {
                                 Button("Delete") {
-                                    managedObjectContext.delete(transaction)
-                                    try? managedObjectContext.save()
+//                                    managedObjectContext.delete(transaction)
+//                                    try? managedObjectContext.save()
                                 }
                                 .tint(.red)
                             }
-                            .onTapGesture {
-                                self.transaction = transaction
-                                addModalView.toggle()
-                            }
+//                            .onTapGesture {
+//                                self.transaction = transaction
+//                                addModalView.toggle()
+//                            }
                     }
                 }
             }
