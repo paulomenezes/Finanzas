@@ -9,7 +9,9 @@ import Foundation
 import CurrencyFormatter
 
 func formatCurrency(value: Double?) -> String {
-    let numberFormatter = CurrencyFormatter.default
+    let numberFormatter = NumberFormatter()
+    numberFormatter.locale = Locale(identifier: "pt_BR")
+    numberFormatter.numberStyle = NumberFormatter.Style.currency
     
-    return numberFormatter.string(from: value ?? 0.0) ?? "0"
+    return numberFormatter.string(from: NSNumber(value: value ?? 0)) ?? ""
 }

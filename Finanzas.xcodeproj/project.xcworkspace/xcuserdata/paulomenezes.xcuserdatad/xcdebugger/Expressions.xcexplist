@@ -41,6 +41,9 @@
          contextName = "closure #1 in DashboardView.transactionsByDay():DashboardView.swift">
          <PersistentStrings>
             <PersistentString
+               value = "transaction.paymentType">
+            </PersistentString>
+            <PersistentString
                value = "date.date">
             </PersistentString>
             <PersistentString
@@ -95,10 +98,10 @@
          contextName = "closure #1 in closure #1 in closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in DashboardView.body.getter:DashboardView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "bill.type">
+               value = "bill">
             </PersistentString>
             <PersistentString
-               value = "bill">
+               value = "bill.type">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -17,25 +17,43 @@ struct TransactionAddView: View {
     public var transactionItem: Transaction?
     
     @FetchRequest(sortDescriptors: []) var bankAccounts: FetchedResults<BankAccount>
+    @FetchRequest(sortDescriptors: []) var creditCards: FetchedResults<CreditCard>
     
     @State private var currencyFormatter = CurrencyFormatter.default
-    
+
+    // Detail
+    @State private var type: TransactionType = .expense
+    @State private var paymentType: PaymentType = .debit
+
     @State private var name: String = ""
     
     @State private var value: Double? = 0.0
     @State private var valueText = "0"
-    
-    @State private var paid = false
+
     @State private var date = Date()
-    @State private var paymentDate = Date()
+    // Detail
     
-    @State private var type: TransactionType = .expense
+    // Payment
+    @State private var paid = false
+    @State private var paymentDate = Date()
+    // - [PaymentType] is Debit -> Bank account
+    // - [PaymentType] is Credit -> Credit card
+    @State private var accountFrom: UUID?
+    // - [Type] is transfer
+    @State private var accountTo: UUID?
+    // - Credit card payment
+    @State private var creditCardPayment: UUID?
+    // Payment
+
+    // Type
     @State private var actionType: ActionType = .none
+    // - Action type recurrent
+    @State private var recurrentHasLastDate = false
+    @State private var recurrentLastDate = Date()
+    // - Action type installments
     @State private var installmentFrom: String = "1"
     @State private var installmentTo: String = "2"
-    
-    @State private var accountFrom: UUID?
-    @State private var accountTo: UUID?
+    // Type
 
     var body: some View {
         NavigationView {
@@ -49,7 +67,25 @@ struct TransactionAddView: View {
                             }
                         }
                         .pickerStyle(.segmented)
+                        .onChange(of: paymentType) { value in
+                            accountFrom = nil
+                            accountTo = nil
+                        }
                         
+                        if type == .expense {
+                            Picker("Type", selection: $paymentType) {
+                                ForEach(PaymentType.allCases) { paymentType in
+                                    Text(paymentType.rawValue.capitalized)
+                                        .tag(paymentType)
+                                }
+                            }
+                            .pickerStyle(.segmented)
+                            .onChange(of: paymentType) { value in
+                                accountFrom = nil
+                                accountTo = nil
+                            }
+                        }
+
                         TextField("Name", text: $name)
                         
                         HStack {
@@ -80,9 +116,17 @@ struct TransactionAddView: View {
                             DatePicker(type == .expense ? "Payment Date" : type == .income ? "Received Date" : "Transfer Date", selection: $paymentDate, displayedComponents: [.date])
                         }
                         
-                        Picker("From", selection: $accountFrom) {
-                            ForEach(bankAccounts, id: \.id) { bankAccount in
-                                Text(bankAccount.name ?? "-")
+                        if paymentType == .debit {
+                            Picker("From", selection: $accountFrom) {
+                                ForEach(bankAccounts, id: \.id) { bankAccount in
+                                    Text(bankAccount.name ?? "-")
+                                }
+                            }
+                        } else {
+                            Picker("From", selection: $accountFrom) {
+                                ForEach(creditCards, id: \.id) { creditCard in
+                                    Text(creditCard.name ?? "-")
+                                }
                             }
                         }
                         
@@ -90,6 +134,12 @@ struct TransactionAddView: View {
                             Picker("To", selection: $accountTo) {
                                 ForEach(bankAccounts, id: \.id) { bankAccount in
                                     Text(bankAccount.name ?? "-")
+                                }
+                            }
+                        } else if type == .expense && paymentType == .debit {
+                            Picker("Credit Card", selection: $creditCardPayment) {
+                                ForEach(creditCards, id: \.id) { creditCard in
+                                    Text(creditCard.name ?? "-")
                                 }
                             }
                         }
@@ -103,6 +153,14 @@ struct TransactionAddView: View {
                             }
                         }
                         .pickerStyle(.segmented)
+                        
+                        if actionType == .recurrent {
+                            Toggle("Has last date", isOn: $recurrentHasLastDate)
+                            
+                            if recurrentHasLastDate {
+                                DatePicker("Last Date", selection: $recurrentLastDate, displayedComponents: [.date])
+                            }
+                        }
                         
                         if actionType == .installments {
                             HStack {
@@ -158,19 +216,34 @@ struct TransactionAddView: View {
     }
     
     func save() {
+        let bankAccountFrom = bankAccounts.first { bankAccount in
+            bankAccount.id == accountFrom
+        }
+        
+        let bankAccountTo = accountTo != nil ? bankAccounts.first { bankAccount in
+            bankAccount.id == accountTo
+        } : nil
+        
+        let creditCard = creditCardPayment != nil ? creditCards.first { creditCard in
+            creditCard.id == creditCardPayment
+        } : nil
+        
         let transaction = Transaction(context: managedObjectContext)
         transaction.id = UUID()
         transaction.name = name
         transaction.value = value ?? 0.0
         transaction.date = date
         transaction.paid = paid
+        transaction.paymentType = paymentType.rawValue
         transaction.paymentDate = paymentDate
         transaction.installmentFrom = Int16(installmentFrom) ?? 0
         transaction.installmentTo = Int16(installmentTo) ?? 0
         transaction.action = actionType.rawValue
         transaction.type = type.rawValue
-        transaction.accountFrom = accountFrom
-        transaction.accountTo = accountTo
+        transaction.accountFrom = bankAccountFrom
+        transaction.accountTo = bankAccountTo
+        transaction.creditCardPayment = creditCard
+        transaction.recurrentLastDate = recurrentHasLastDate ? recurrentLastDate : nil
         transaction.createdAt = Date()
         transaction.updateAt = Date()
         

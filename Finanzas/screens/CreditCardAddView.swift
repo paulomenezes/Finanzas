@@ -27,8 +27,6 @@ struct CreditCardAddView: View {
     @State private var paymentDate = Date()
     @State private var closedDate = Date()
     
-    @State private var paymentAccount: UUID?
-    
     @State var itemsValueText = [String]()
     @State var itemsValue = [Double?]()
     @State var itemsDate = [Date]()
@@ -70,12 +68,6 @@ struct CreditCardAddView: View {
                         DatePicker("Payment at", selection: $paymentDate, displayedComponents: [.date])
                         
                         DatePicker("Closed at", selection: $closedDate, displayedComponents: [.date])
-                        
-                        Picker("Payment account", selection: $paymentAccount) {
-                            ForEach(bankAccounts, id: \.id) { bankAccount in
-                                Text(bankAccount.name ?? "-")
-                            }
-                        }
                     }
                     
                     Section(header: Text("Bills")) {
@@ -118,20 +110,21 @@ struct CreditCardAddView: View {
                         creditCard.available = available
                         creditCard.closedDate = closedDate
                         creditCard.paymentDate = paymentDate
-                        creditCard.paymentAccount = paymentAccount
                         creditCard.createdAt = Date()
                         creditCard.updateAt = Date()
-                        creditCard.item = []
                         
                         try? managedObjectContext.save()
                         
                         for index in 0..<itemsValue.count {
-                            let newItem = CreditCardItem(context: managedObjectContext)
+                            let newItem = Transaction(context: managedObjectContext)
                             newItem.id = UUID()
-                            newItem.name = "Fatura \(itemsDate[index].toFormattedString())"
+                            newItem.name = "Fatura \(name) \(itemsDate[index].formatted(.dateTime.month(.wide).day()))"
                             newItem.value = itemsValue[index] ?? 0
                             newItem.date = itemsDate[index]
-                            newItem.creditCard = creditCard
+                            newItem.type = TransactionType.expense.rawValue
+                            newItem.paymentType = PaymentType.credit.rawValue
+                            newItem.action = ActionType.none.rawValue
+                            newItem.creditCardPayment = creditCard
                             
                             try? managedObjectContext.save()
                         }

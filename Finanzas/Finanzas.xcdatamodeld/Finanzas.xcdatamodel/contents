@@ -6,6 +6,8 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="updateAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="accountFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="accountFrom" inverseEntity="Transaction"/>
+        <relationship name="accountTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="accountTo" inverseEntity="Transaction"/>
     </entity>
     <entity name="CreditCard" representedClassName="CreditCard" syncable="YES" codeGenerationType="class">
         <attribute name="available" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -14,24 +16,11 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="limit" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="paymentAccount" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="paymentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="updateAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="item" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CreditCardItem" inverseName="creditCard" inverseEntity="CreditCardItem"/>
-    </entity>
-    <entity name="CreditCardItem" representedClassName="CreditCardItem" syncable="YES" codeGenerationType="class">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="installmentFrom" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="installmentTo" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="type" optional="YES" attributeType="String"/>
-        <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="creditCard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CreditCard" inverseName="item" inverseEntity="CreditCard"/>
+        <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="creditCardPayment" inverseEntity="Transaction"/>
     </entity>
     <entity name="Transaction" representedClassName="Transaction" syncable="YES" codeGenerationType="class">
-        <attribute name="accountFrom" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="accountTo" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="action" optional="YES" attributeType="String"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -41,14 +30,18 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="paid" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="paymentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="paymentType" optional="YES" attributeType="String"/>
+        <attribute name="recurrentLastDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="type" optional="YES" attributeType="String"/>
         <attribute name="updateAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="accountFrom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BankAccount" inverseName="accountFrom" inverseEntity="BankAccount"/>
+        <relationship name="accountTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BankAccount" inverseName="accountTo" inverseEntity="BankAccount"/>
+        <relationship name="creditCardPayment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CreditCard" inverseName="transactions" inverseEntity="CreditCard"/>
     </entity>
     <elements>
-        <element name="BankAccount" positionX="-36" positionY="99" width="128" height="104"/>
-        <element name="Transaction" positionX="-18" positionY="126" width="128" height="239"/>
-        <element name="CreditCard" positionX="-63" positionY="-18" width="128" height="179"/>
-        <element name="CreditCardItem" positionX="-54" positionY="45" width="128" height="149"/>
+        <element name="BankAccount" positionX="-36" positionY="99" width="128" height="134"/>
+        <element name="CreditCard" positionX="-63" positionY="-18" width="128" height="164"/>
+        <element name="Transaction" positionX="-18" positionY="126" width="128" height="284"/>
     </elements>
 </model>
