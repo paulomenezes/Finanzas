@@ -45,35 +45,40 @@ struct DashboardView: View {
                         ForEach(value) { transaction in
                             TransactionItemView(name: transaction.name, value: transaction.value, paid: transaction.paid, type: transaction.type)
                                 .swipeActions {
-                                    Button("Transfered") {
-//                                    Button(isExpense(transaction) ? "Paid" : isIncome(transaction) ? "Received" : "Transfered") {
-//                                        if !transaction.paid {
-//                                            transaction.paid = true
-//
-//                                            let bankAccount = bankAccounts.first(where: { account in
-//                                                account.id == transaction.accountFrom?.id
-//                                            })
-//
-//                                            if let bankAccount = bankAccount {
-//                                                if isExpense(transaction) {
-//                                                    bankAccount.balance -= transaction.value
-//                                                } else if isIncome(transaction) {
-//                                                    bankAccount.balance += transaction.value
-//                                                } else if isTransfer(transaction) {
-//                                                    let bankAccountTo = bankAccounts.first(where: { account in
-//                                                        account.id == transaction.accountTo?.id
-//                                                    })
-//
-//                                                    bankAccount.balance -= transaction.value
-//
-//                                                    if let bankAccountTo = bankAccountTo {
-//                                                        bankAccountTo.balance += transaction.value
-//                                                    }
-//                                                }
-//                                            }
-//
-//                                            try? managedObjectContext.save()
-//                                        }
+                                    Button(isExpense(transaction) ? "Paid" : isIncome(transaction) ? "Received" : "Transfered") {
+                                        if !transaction.paid {
+                                            let updateTransaction = transactions.first { t in
+                                                t.id == transaction.id
+                                            }
+                                            
+                                            if let updateTransaction = updateTransaction {
+                                                updateTransaction.paid = true
+                                            
+                                                let bankAccount = bankAccounts.first(where: { account in
+                                                    account.id == transaction.accountFrom?.id
+                                                })
+
+                                                if let bankAccount = bankAccount {
+                                                    if isExpense(transaction) {
+                                                        bankAccount.balance -= transaction.value
+                                                    } else if isIncome(transaction) {
+                                                        bankAccount.balance += transaction.value
+                                                    } else if isTransfer(transaction) {
+                                                        let bankAccountTo = bankAccounts.first(where: { account in
+                                                            account.id == transaction.accountTo?.id
+                                                        })
+
+                                                        bankAccount.balance -= transaction.value
+
+                                                        if let bankAccountTo = bankAccountTo {
+                                                            bankAccountTo.balance += transaction.value
+                                                        }
+                                                    }
+                                                }
+
+                                                try? managedObjectContext.save()
+                                            }
+                                        }
                                     }
                                     .tint(.green)
                                 }
@@ -142,37 +147,39 @@ struct DashboardView: View {
                 type: transaction.type,
                 accountFrom: transaction.accountFrom,
                 accountTo: transaction.accountTo,
+                creditCardFrom: transaction.creditCardFrom,
                 creditCardPayment: transaction.creditCardPayment,
                 recurrentLastDate: transaction.recurrentLastDate
             )
             
-            if !clone.paid {
+//            if !clone.paid {
                 if clone.action == ActionType.installments.rawValue {
-//                    let name = transaction.name ?? ""
                     clone.name = "\(transaction.name ?? "") \(transaction.installmentFrom)/\(transaction.installmentTo)"
+                    clone.value = transaction.value / Double(clone.installmentTo ?? 1)
                     
                     newTransactions.append(clone)
                     
                     let from = transaction.installmentFrom
                     let to = transaction.installmentTo
-
+                    
                     if to > from {
-                        for index in from..<to {
+                        var i: Int16 = 1
+                        for _ in from..<to {
                             let creditCardPaymentDateComponents = calendar.dateComponents([.year, .month, .day], from: transaction.date ?? Date())
-
+                            
                             var dateComponents = DateComponents()
                             dateComponents.year = creditCardPaymentDateComponents.year
-                            dateComponents.month = (creditCardPaymentDateComponents.month ?? 0) + Int(index)
+                            dateComponents.month = (creditCardPaymentDateComponents.month ?? 0) + Int(i)
                             dateComponents.day = creditCardPaymentDateComponents.day
                             
-                            let installmentFrom = transaction.installmentFrom + index
+                            let installmentFrom = from + i
 
-                            let clone = TransactionDashboard(
-                                id: transaction.id,
+                            let newItemClone = TransactionDashboard(
+                                id: UUID(),
                                 name: "\(transaction.name ?? "") \(installmentFrom)/\(transaction.installmentTo)",
-                                value: transaction.value,
+                                value: transaction.value / Double(transaction.installmentTo),
                                 date: calendar.date(from: dateComponents) ?? Date(),
-                                paid: transaction.paid,
+                                paid: false,
                                 paymentType: transaction.paymentType,
                                 paymentDate: transaction.paymentDate,
                                 installmentFrom: installmentFrom,
@@ -185,7 +192,9 @@ struct DashboardView: View {
                                 recurrentLastDate: transaction.recurrentLastDate
                             )
                             
-                            newTransactions.append(clone)
+                            newTransactions.append(newItemClone)
+                            
+                            i += 1
                         }
                     }
                 } else if clone.action == ActionType.recurrent.rawValue {
@@ -193,28 +202,26 @@ struct DashboardView: View {
                 } else {
                     newTransactions.append(clone)
                 }
-            }
+//            }
         }
         
-        return Dictionary(grouping: newTransactions) { transaction in
+        let dict: [(key: String, value: [TransactionDashboard])] = Dictionary(grouping: newTransactions) { transaction in
             if transaction.paymentType == PaymentType.credit.rawValue {
-                let creditCardPaymentDate = transaction.creditCardPayment?.paymentDate ?? Date()
+                let creditCardPaymentDate = transaction.creditCardFrom?.paymentDate ?? Date()
                 let itemDate = transaction.date ?? Date()
                 
                 if itemDate > creditCardPaymentDate {
-                    // Data do cartão: 12/09/2022
-                    // Data da compra: 15/09/2022
-                    // Create date from components
                     let creditCardPaymentDateComponents = calendar.dateComponents([.year, .month, .day], from: creditCardPaymentDate)
+                    let itemDateComponents = calendar.dateComponents([.year, .month, .day], from: itemDate)
 
                     var dateComponents = DateComponents()
-                    dateComponents.year = creditCardPaymentDateComponents.year
-                    dateComponents.month = (creditCardPaymentDateComponents.month ?? 0) + 1
+                    dateComponents.year = itemDateComponents.year
+                    dateComponents.month = (itemDateComponents.month ?? 0) + 1
                     dateComponents.day = creditCardPaymentDateComponents.day
-
+                    
                     return calendar.date(from: dateComponents)?.toFormattedString() ?? ""
                 } else {
-                    return transaction.creditCardPayment?.paymentDate?.toFormattedString() ?? ""
+                    return transaction.creditCardFrom?.paymentDate?.toFormattedString() ?? ""
                 }
             } else {
                 return transaction.date?.toFormattedString() ?? ""
@@ -225,6 +232,8 @@ struct DashboardView: View {
             
             return a < b
         })
+        
+        return dict
     }
 }
 

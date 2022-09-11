@@ -3,14 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "CurrencyUITextField.init(formatter:value:):CurrencyUITextField.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "value">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "CreditCardAddView.calculateCurrentBill():CreditCardAddView.swift">
          <PersistentStrings>
             <PersistentString
@@ -19,21 +11,29 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #3 in closure #1 in CreditCardAddView.body.getter:CreditCardAddView.swift">
+         contextName = "closure #3 in closure #1 in TransactionAddView.body.getter:TransactionAddView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "Int(item.value * 100)">
-            </PersistentString>
-            <PersistentString
-               value = "self.itemsInstallmentFrom">
+               value = "transactionItem.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CurrencyUITextField.decimal.getter:CurrencyUITextField.swift">
+         contextName = "closure #1 in CurrencyUITextField.updateValue():CurrencyUITextField.swift">
          <PersistentStrings>
             <PersistentString
-               value = "textValue">
+               value = "self?.value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in DashboardView.body.getter:DashboardView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bill">
+            </PersistentString>
+            <PersistentString
+               value = "bill.type">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -52,10 +52,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #3 in closure #1 in TransactionAddView.body.getter:TransactionAddView.swift">
+         contextName = "CurrencyUITextField.init(formatter:value:):CurrencyUITextField.swift">
          <PersistentStrings>
             <PersistentString
-               value = "transactionItem.name">
+               value = "value">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -71,18 +71,26 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #2 in closure #1 in closure #1 in PasteItemsView.body.getter:PasteItemsView.swift">
+         contextName = "DashboardView.transactionsByDay():DashboardView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "String(String(nameValue).split(separator: &quot;\t&quot;)[0])">
+               value = "clone.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in CurrencyUITextField.updateValue():CurrencyUITextField.swift">
+         contextName = "CurrencyUITextField.decimal.getter:CurrencyUITextField.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self?.value">
+               value = "textValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #2 in closure #1 in closure #1 in PasteItemsView.body.getter:PasteItemsView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "String(String(nameValue).split(separator: &quot;\t&quot;)[0])">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -95,13 +103,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in DashboardView.body.getter:DashboardView.swift">
+         contextName = "closure #1 in closure #3 in closure #1 in CreditCardAddView.body.getter:CreditCardAddView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "bill">
+               value = "Int(item.value * 100)">
             </PersistentString>
             <PersistentString
-               value = "bill.type">
+               value = "self.itemsInstallmentFrom">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

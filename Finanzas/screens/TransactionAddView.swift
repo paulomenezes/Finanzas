@@ -59,8 +59,8 @@ struct TransactionAddView: View {
         NavigationView {
             VStack {
                 Form {
-                    Section(header: Text("Detail")) {
-                        Picker("Type", selection: $type) {
+                    Section(header: Text("Detalhes")) {
+                        Picker("Tipo", selection: $type) {
                             ForEach(TransactionType.allCases) { transactionType in
                                 Text(transactionType.rawValue.capitalized)
                                     .tag(transactionType)
@@ -73,7 +73,7 @@ struct TransactionAddView: View {
                         }
                         
                         if type == .expense {
-                            Picker("Type", selection: $paymentType) {
+                            Picker("Tipo", selection: $paymentType) {
                                 ForEach(PaymentType.allCases) { paymentType in
                                     Text(paymentType.rawValue.capitalized)
                                         .tag(paymentType)
@@ -86,10 +86,10 @@ struct TransactionAddView: View {
                             }
                         }
 
-                        TextField("Name", text: $name)
+                        TextField("Nome", text: $name)
                         
                         HStack {
-                            Text("Value")
+                            Text("Valor")
                             CurrencyTextField(
                                 configuration: .init(
                                     text: $valueText,
@@ -105,25 +105,25 @@ struct TransactionAddView: View {
                             )
                         }
                         
-                        DatePicker("Date", selection: $date, displayedComponents: [.date])
+                        DatePicker("Data", selection: $date, displayedComponents: [.date])
                     }
                     
                     
-                    Section(header: Text("Payment")) {
-                        Toggle(type == .expense ? "Paid" : type == .income ? "Received" : "Transfered", isOn: $paid)
+                    Section(header: Text("Pagamento")) {
+                        Toggle(type == .expense ? "Pago" : type == .income ? "Recebido" : "Transferido", isOn: $paid)
                         
                         if paid {
-                            DatePicker(type == .expense ? "Payment Date" : type == .income ? "Received Date" : "Transfer Date", selection: $paymentDate, displayedComponents: [.date])
+                            DatePicker(type == .expense ? "Data do Pagamento" : type == .income ? "Data do Recebimento" : "Data da Tansferência", selection: $paymentDate, displayedComponents: [.date])
                         }
                         
                         if paymentType == .debit {
-                            Picker("From", selection: $accountFrom) {
+                            Picker("Debitado da conta", selection: $accountFrom) {
                                 ForEach(bankAccounts, id: \.id) { bankAccount in
                                     Text(bankAccount.name ?? "-")
                                 }
                             }
                         } else {
-                            Picker("From", selection: $accountFrom) {
+                            Picker("Creditado no cartão", selection: $accountFrom) {
                                 ForEach(creditCards, id: \.id) { creditCard in
                                     Text(creditCard.name ?? "-")
                                 }
@@ -131,13 +131,13 @@ struct TransactionAddView: View {
                         }
                         
                         if type == .transfer {
-                            Picker("To", selection: $accountTo) {
+                            Picker("Enviado para conta", selection: $accountTo) {
                                 ForEach(bankAccounts, id: \.id) { bankAccount in
                                     Text(bankAccount.name ?? "-")
                                 }
                             }
                         } else if type == .expense && paymentType == .debit {
-                            Picker("Credit Card", selection: $creditCardPayment) {
+                            Picker("Pagar fatura do cartão", selection: $creditCardPayment) {
                                 ForEach(creditCards, id: \.id) { creditCard in
                                     Text(creditCard.name ?? "-")
                                 }
@@ -216,9 +216,13 @@ struct TransactionAddView: View {
     }
     
     func save() {
-        let bankAccountFrom = bankAccounts.first { bankAccount in
+        let bankAccountFrom = paymentType == .debit ? bankAccounts.first { bankAccount in
             bankAccount.id == accountFrom
-        }
+        } : nil
+        
+        let creditCardFrom = paymentType == .credit ? creditCards.first { creditCard in
+            creditCard.id == accountFrom
+        } : nil
         
         let bankAccountTo = accountTo != nil ? bankAccounts.first { bankAccount in
             bankAccount.id == accountTo
@@ -241,6 +245,7 @@ struct TransactionAddView: View {
         transaction.action = actionType.rawValue
         transaction.type = type.rawValue
         transaction.accountFrom = bankAccountFrom
+        transaction.creditCardFrom = creditCardFrom
         transaction.accountTo = bankAccountTo
         transaction.creditCardPayment = creditCard
         transaction.recurrentLastDate = recurrentHasLastDate ? recurrentLastDate : nil

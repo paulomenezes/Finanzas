@@ -21,6 +21,7 @@ struct TransactionDashboard : Identifiable {
     var type: String?
     var accountFrom: BankAccount?
     var accountTo: BankAccount?
+    var creditCardFrom: CreditCard?
     var creditCardPayment: CreditCard?
     var recurrentLastDate: Date?
 }

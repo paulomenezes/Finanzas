@@ -18,6 +18,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="paymentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="updateAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="credits" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="creditCardFrom" inverseEntity="Transaction"/>
         <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="creditCardPayment" inverseEntity="Transaction"/>
     </entity>
     <entity name="Transaction" representedClassName="Transaction" syncable="YES" codeGenerationType="class">
@@ -37,11 +38,12 @@
         <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="accountFrom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BankAccount" inverseName="accountFrom" inverseEntity="BankAccount"/>
         <relationship name="accountTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BankAccount" inverseName="accountTo" inverseEntity="BankAccount"/>
+        <relationship name="creditCardFrom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CreditCard" inverseName="credits" inverseEntity="CreditCard"/>
         <relationship name="creditCardPayment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CreditCard" inverseName="transactions" inverseEntity="CreditCard"/>
     </entity>
     <elements>
         <element name="BankAccount" positionX="-36" positionY="99" width="128" height="134"/>
-        <element name="CreditCard" positionX="-63" positionY="-18" width="128" height="164"/>
-        <element name="Transaction" positionX="-18" positionY="126" width="128" height="284"/>
+        <element name="CreditCard" positionX="-63" positionY="-18" width="128" height="179"/>
+        <element name="Transaction" positionX="-18" positionY="126" width="128" height="299"/>
     </elements>
 </model>
